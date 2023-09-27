@@ -1,4 +1,10 @@
 # hillwood-backend-dashboard
+```ruby
+# rubocop
+```
+```js
+# npx stylelint "**/*.{css,scss}"
+```
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
