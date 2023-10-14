@@ -12,6 +12,8 @@ module HillwoodBackendDashboard
     config.load_defaults 7.1
 
     # config.serve_static_files = true # Extend for Heroku and production
+    config.action_dispatch.rescue_responses['Pundit::NotAuthorizedError'] = :forbidden
+
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
