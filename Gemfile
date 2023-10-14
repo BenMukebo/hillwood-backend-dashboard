@@ -18,7 +18,10 @@ gem 'pg', '~> 1.1'
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '>= 5.0'
 
-gem "pundit", "~> 2.3"
+gem 'pundit', '~> 2.3'
+
+gem 'pry'
+# gem 'pry-rails'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
@@ -73,5 +76,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
 end
