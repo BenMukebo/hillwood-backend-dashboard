@@ -8,6 +8,8 @@ gem 'rails', '~> 7.0.8'
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
+gem 'devise_token_auth' # , '~> 1.1', '>= 1.1.4'
+
 gem 'figaro'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
