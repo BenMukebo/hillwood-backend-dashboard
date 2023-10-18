@@ -10,6 +10,10 @@ gem 'rubocop', '>= 1.0', '< 2.0'
 
 gem 'devise_token_auth' # , '~> 1.1', '>= 1.1.4'
 
+gem 'active_model_serializers', '~> 0.10.13'
+gem 'fast_jsonapi'
+gem 'rack-cors' #, :require => 'rack/cors'
+
 gem 'figaro'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
