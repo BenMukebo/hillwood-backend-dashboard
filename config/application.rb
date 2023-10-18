@@ -14,11 +14,25 @@ module HillwoodBackendDashboard
     # config.serve_static_files = true # Extend for Heroku and production
     config.action_dispatch.rescue_responses['Pundit::NotAuthorizedError'] = :forbidden
 
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+          headers: :any,
+          expose: ['access-token', 'expiry', 'token-type', 'uid', 'client', 'Authorization'],
+          methods: [:get, :post, :options, :delete, :put]
+      end
+    end
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     # config.autoload_lib(ignore: %w(assets tasks))  TODO: Not sure about this line
+
+    # TO FIX ISSUE WHICH MAY HAPPENED
+    # config.session_store :cookie_store, key: '_interslice_session'
+    # config.middleware.use ActionDispatch::Cookies
+    # config.middleware.use config.session_store, config.session_options
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -27,5 +41,7 @@ module HillwoodBackendDashboard
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    # config.api_only = true
   end
 end
