@@ -4,7 +4,7 @@
 
 require_relative "boot"
 require "rails/all"
-require 'letter_opener' if Rails.env.development? # To fix Invalid delivery method :letter_opener error
+# require 'letter_opener' if Rails.env.development? # To fix Invalid delivery method :letter_opener error
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -27,6 +27,8 @@ module HillwoodBackendDashboard
           methods: [:get, :post, :options, :delete, :put]
       end
     end
+
+    config.action_mailer.default_url_options = { host: 'localhost', port: 8000 }
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
