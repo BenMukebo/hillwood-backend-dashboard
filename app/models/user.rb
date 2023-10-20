@@ -8,4 +8,32 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  belongs_to :role
+
+  # after_initialize :set_default_role, if: :new_record?
+
+  # add sign up validation
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
+  validates :email, presence: true
+  validates :phone, presence: true, uniqueness: true, length: { within: 10..14 }
+  validates :password_confirmation, presence: true, allow_blank: true
+  validates :terms_of_service, acceptance: { accept: true }
+  # validates :privacy_policy, presence: true, inclusion: { in: [true, false] }
+  validates_inclusion_of :remember_me, in: [true, false], allow_blank: true
+  validates_inclusion_of :welcome_email_send, in: [true, false]
+
+  def admin?
+    role.name == 'admin'
+  end
+
+  private
+
+  def set_default_role
+    self.role = Role.find_or_create_by(name: 'user') if role.nil?
+  end
+
+  def update_role(role_name)
+    self.role = Role.find_or_create_by(name: role_name).save!
+  end
 end
