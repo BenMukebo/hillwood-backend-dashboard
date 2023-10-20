@@ -8,6 +8,12 @@ gem 'rails', '~> 7.0.8'
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
+gem 'devise_token_auth' # , '~> 1.1', '>= 1.1.4'
+
+gem 'active_model_serializers', '~> 0.10.13'
+gem 'fast_jsonapi'
+gem 'rack-cors' # , :require => 'rack/cors'
+
 gem 'figaro'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -22,7 +28,6 @@ gem 'puma', '~> 5.0'
 gem 'pundit', '~> 2.3'
 
 gem 'pry'
-# gem 'pry-rails'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
@@ -80,6 +85,8 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'letter_opener'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
+  # gem 'pry-rails'
 end
