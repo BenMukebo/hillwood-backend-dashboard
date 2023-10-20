@@ -26,8 +26,11 @@ Devise.setup do |config|
   # with default "from" parameter.
   # config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
   Devise.setup do |config|
-    config.mailer_sender = "<support@hillwoodempire.org>"
+    config.mailer_sender = 'HillWood <support@hillwoodempire.org>'
+    config.reconfirmable = true # if user changes email address associated with their account, he will need to be reconfirmed just like initially after registration.
   end
+  # Note: This is the default reply-to address for all emails sent by Devise.
+
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
