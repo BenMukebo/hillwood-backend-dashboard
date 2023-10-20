@@ -1,6 +1,10 @@
-require_relative "boot"
+# TODO: Adapt this application and make it an API one
+# add the following line at the top of the Application class definition:
+# config.api_only = true
 
+require_relative "boot"
 require "rails/all"
+require 'letter_opener' if Rails.env.development? # To fix Invalid delivery method :letter_opener error
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -41,7 +45,5 @@ module HillwoodBackendDashboard
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    
-    # config.api_only = true
   end
 end

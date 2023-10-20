@@ -1,17 +1,16 @@
-# frozen_string_literal: true
-
 class User < ActiveRecord::Base
   extend Devise::Models
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :confirmable
   include DeviseTokenAuth::Concerns::User
 
   belongs_to :role
 
-  # after_initialize :set_default_role, if: :new_record?
+  after_initialize :set_default_role, if: :new_record?
 
   # add sign up validation
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
