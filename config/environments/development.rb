@@ -12,9 +12,24 @@ Rails.application.configure do
   end
 
   # Letter opener
-  config.action_mailer.delivery_method = :letter_opener
+  # config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 8000 }
+  
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'localhost:8000',
+    user_name: Rails.application.credentials.dig(:gmail_smtp, :email), #hillwoodempire@gmail.com #Hillwood@0788804126
+    password: Rails.application.credentials.dig(:gmail_smtp, :password), #fzhmlnifdacuwvit
+    # authentication: 'login', // Keep this commented it cause incorect confirm link preventing the user to confirm and login
+    authentication: 'plain',
+    enable_starttls_auto: true,
+    open_timeout: 5,
+    read_timeout: 5
+  }
+  
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 8000 }
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -82,4 +97,10 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # Raise error when a before_action's only/except options reference missing actions
+  # config.action_controller.raise_on_missing_callback_actions = true
+
+  # By default this is set to :api, when config.api_only is set to true.
+  # config.debug_exception_response_format = :api # or :default
 end

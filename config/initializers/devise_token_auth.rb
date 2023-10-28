@@ -66,12 +66,12 @@ DeviseTokenAuth.setup do |config|
   # send email, set it to true. (This is a setting for compatibility)
   config.send_confirmation_email = true
 
-  config.default_confirm_success_url = "https://localhost:3000/auth/login"
+  config.default_confirm_success_url = "https://localhost:8000/auth/login"
 
-  config.default_password_reset_url= "https://localhost:3000/auth/password" # PUT: reset-password link
-  # config.default_password_reset_url = 'https://localhost:3000/auth/reset-password'
+  config.default_password_reset_url= "https://localhost:8000/auth/password" # PUT: reset-password link
+  # config.default_password_reset_url = 'https://localhost:8000/auth/reset-password'
 
   config.remove_tokens_after_password_reset = true
 
-  config.redirect_whitelist= ["https://localhost:3000/auth/sign_in", "https://localhost:3000/login", "https://localhost:3000/auth/*"]
+  config.redirect_whitelist= ["https://localhost:8000/auth/sign_in", "https://localhost:8000/auth/login", "https://localhost:3000/auth/*"]
 end
