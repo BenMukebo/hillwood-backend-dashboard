@@ -1,51 +1,32 @@
 # class Api::UsersController < ApplicationController
-# end
-
-# Create enum that will kepp success and error messages ; 
-# NAME = { user: 0, super_admin: 2, subscriber: 3, admin: 4 }.freeze
-# request_messages = {  { user: 0, super_admin: 2, subscriber: 3, admin: 4 }.freeze }
-
 module Api
   class UsersController < ApplicationController
     # before_action :authenticate_user!
     before_action :set_user, only: %i[show update destroy]
-    before_action :set_current_user, only: %i[index current_show current_edit]
+    before_action :set_current_user, only: %i[index profile edit]
 
     def index
-      @users = User.all
-      # @verified_users = User.all.where(remember: 3)
-      # user_count = @users.count
+      @users = if params[:search].present?
+                 User.where('username LIKE :search OR email LIKE :search', search: "%#{params[:search]}%")
+               else
+                 User.all
+               end
 
-      render json: {
-        message: 'success',
-        data: @users
-      }, status: :ok
+      if @users.any?
+        render_success_response('Users fetched successfully', @users)
+      else
+        render_not_found_response('No users found with the given search criteria.')
+      end
     end
 
-    # GET /users/1
     def show
-      render json: {
-        message: request.success,
-        data: @user
-      }, status: 201
+      render_success_response('User fetched successfully', @user)
     end
 
-    # GET /user
-    def current_show
-      render json: {
-        message: request.success,
-        data: @current_user
-      }, status: 200
-
-      # render json: {
-      #   data: {
-      #     message: "Welcome #{@current_user.username}",
-      #     user: @current_user
-      #   }
-      # }, status: 200
+    def profile
+      render_success_response('Profile fetched successfully', @current_user)
     end
 
-    # PATCH/PUT /users/1
     def update
       if @user.update!(user_params)
         render json: { message: "Hi, You've updated successfully user #{@user.id} data", user: @user }, status: :ok
@@ -55,32 +36,38 @@ module Api
       end
     end
 
-    # PUT /user
-    def current_edit
+    def edit
       if @current_user.update(user_params)
-        render json: { message: 'User updated successfully', user: @current_user }, status: :ok
+        render_success_response('Profile updated successfully', @current_user)
         # ProfileMailer.with(user: current_user).update_email.deliver_later
       else
-        render json: { errors: @curent_user.errors }, status: :unprocessable_entity
+        render_unprocessable_entity_response(@current_user.errors)
       end
+    rescue ArgumentError => e #  StandardError => e
+      render_unprocessable_entity_response(e)
     end
 
-    # DELETE /users/1
     def destroy
       @user.destroy
 
+      # head :no_content
       render json: {
         status: 'success',
         message: "#{@user.email} has been deleted Successfully!!!"
       }, status: :ok
       # redirect_to root_url
+    rescue ActiveRecord::RecordNotDestroyed => e
+      render json: { errors: e.message }, status: :unprocessable_entity
     end
 
     private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
+      # binding.pry
       @user = User.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      render_not_found_response(e.message)
     end
 
     def set_current_user
@@ -89,7 +76,7 @@ module Api
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :phone, :age_group, :remember_me)
+      params.require(:user).permit(:username, :phone, :age_group, :remember_me, :terms_of_service)
     end
   end
 end
