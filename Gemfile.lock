@@ -301,7 +301,7 @@ DEPENDENCIES
   jbuilder
   letter_opener
   pg (~> 1.1)
-  pry
+  pry (~> 0.14.2)
   puma (~> 5.0)
   pundit (~> 2.3)
   rack-cors

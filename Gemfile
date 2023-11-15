@@ -27,7 +27,7 @@ gem 'puma', '~> 5.0'
 
 gem 'pundit', '~> 2.3'
 
-gem 'pry'
+gem 'pry', '~> 0.14.2'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
