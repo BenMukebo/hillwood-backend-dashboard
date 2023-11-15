@@ -27,6 +27,7 @@
 <details>
   <summary>Links </summary>
   <ul>
+    <li><a href="https://drawsql.app/teams/chaw-1/diagrams/hillwood-backend2">ERD Diagram</a></li>
     <li><a href="#">Version 1 features</a></li>
   </ul>
 </details>

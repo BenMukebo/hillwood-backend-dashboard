@@ -29,7 +29,7 @@ module ResponseHelper
   def render_unprocessable_entity_response(error = 'Unprocessable entity')
     render json: {
       success: false,
-      errors: error,
+      errors: error
     }, status: :unprocessable_entity
   end
 

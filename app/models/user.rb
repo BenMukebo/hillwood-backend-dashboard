@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   after_initialize :set_default_role, if: :new_record?
 
   # add sign up validation
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }, on: :update, unless: :admin? #, on: :create, unless: :admin?
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
+  # , on: :update, unless: :admin? # , on: :create, unless: :admin?
   validates :email, presence: true
   # validates :avatar_url, presence: true, uniqueness: true, length: { within: 10..14 }
   validates :password_confirmation, presence: true, allow_blank: true
