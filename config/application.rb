@@ -35,7 +35,7 @@ module HillwoodBackendDashboard
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     # config.autoload_lib(ignore: %w(assets tasks))  TODO: Not sure about this line
 
-    # TO FIX ISSUE WHICH MAY HAPPENED
+    # Emcomment these three line to fix ActionDispatch::Request::Session::DisabledSessionError when enable config.api_only = true
     # config.session_store :cookie_store, key: '_interslice_session'
     # config.middleware.use ActionDispatch::Cookies
     # config.middleware.use config.session_store, config.session_options
@@ -47,5 +47,6 @@ module HillwoodBackendDashboard
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    # config.api_only = true
   end
 end

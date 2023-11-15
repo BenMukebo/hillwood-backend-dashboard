@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_140643) do
     t.inet "last_sign_in_ip"
     t.string "email", null: false
     t.string "username", null: false
-    t.string "phone", null: false
+    t.string "phone_number", null: false
     t.integer "age_group"
     t.boolean "terms_of_service", null: false
     t.boolean "remember_me"
@@ -51,7 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_140643) do
     t.bigint "role_id", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["phone"], name: "index_users_on_phone", unique: true
+    t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true

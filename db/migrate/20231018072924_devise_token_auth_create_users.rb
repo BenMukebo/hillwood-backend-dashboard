@@ -39,7 +39,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[7.0]
       ## User Info
       t.string :email, null: false
       t.string :username, null: false
-      t.string :phone, null: false
+      t.string :phone_number, null: false
       t.integer :age_group
       t.boolean :terms_of_service, null: false
       t.boolean :remember_me
@@ -54,7 +54,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[7.0]
 
     add_index :users, :email, unique: true
     add_index :users, :username, unique: true
-    add_index :users, :phone, unique: true
+    add_index :users, :phone_number, unique: true
     add_index :users, %i[uid provider], unique: true
     add_index :users, :reset_password_token, unique: true
     add_index :users, :confirmation_token,   unique: true

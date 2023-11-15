@@ -4,6 +4,8 @@
 class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
   include Pundit::Authorization
+  include ResponseHelper
+  respond_to :json, :html
 
   before_action :authenticate_user!, unless: :devise_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -12,6 +14,7 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :null_session
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from ActionDispatch::Http::Parameters::ParseError, with: :handle_json_parse_errors
 
   private
 
@@ -21,15 +24,21 @@ class ApplicationController < ActionController::Base
     redirect_back(fallback_location: root_path)
   end
 
+  def handle_json_parse_errors
+    # binding.pry
+    render_unprocessable_entity_response("Invalid JSON: #{request.body.read}")
+  end
+
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[username phone age_group terms_of_service])
-    devise_parameter_sanitizer.permit(:sign_in, keys: %i[email password])
-    # devise_parameter_sanitizer.permit(:account_update,
-    #                                   keys: [:username, :phone, :age_group, :remember_me,
-    #                                          { address_attributes: %i[country state city area postal_code],
-    #                                           profile: %i[first_name last_name sex age phone location profession] }])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[username phone_number age_group terms_of_service])
+    devise_parameter_sanitizer.permit(:sign_in, keys: %i[email password remember_me])
+    devise_parameter_sanitizer.permit(:account_update,
+                                      keys: [:username, :password, :phone_number, :age_group, :remember_me, {
+                                        profile: %i[avatar_url bio first_name last_name sex age profession verified status],
+                                        location: %i[country state city postal_code address_attributes]
+                                      }])
   end
 end
 
