@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_20_140643) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_15_102510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,11 +49,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_140643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "role_id", null: false
+    t.jsonb "profile", default: "{}", null: false
+    t.jsonb "location", default: "{}", null: false
+    t.jsonb "social_links"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["location"], name: "index_users_on_location", using: :gin
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
+    t.index ["profile"], name: "index_users_on_profile", using: :gin
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
+    t.index ["social_links"], name: "index_users_on_social_links", using: :gin
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

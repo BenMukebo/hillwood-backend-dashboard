@@ -36,8 +36,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_in, keys: %i[email password remember_me])
     devise_parameter_sanitizer.permit(:account_update,
                                       keys: [:username, :password, :phone_number, :age_group, :remember_me, {
-                                        profile: %i[avatar_url bio first_name last_name sex age profession verified status],
-                                        location: %i[country state city postal_code address_attributes]
+                                        profile: %i[avatar_url bio first_name last_name sex birth_date verified interests languages status],
+                                        location: %i[country state city zip_code address],
+                                        social_links: %i[facebook twitter instagram linkedin youtube]
                                       }])
   end
 end
