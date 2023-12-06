@@ -15,7 +15,7 @@ module Api
       if @users.any?
         render_success_response('Users fetched successfully', @users)
       else
-        render_not_found_response('No users found with the given search criteria.')
+        render_not_found_response('No users fozzzund with the given search criteria.')
       end
     end
 
@@ -43,21 +43,17 @@ module Api
       else
         render_unprocessable_entity_response(@current_user.errors)
       end
-    rescue ArgumentError => e #  StandardError => e
-      render_unprocessable_entity_response(e)
+    # rescue ArgumentError => e #  StandardError => e
+    #   render_unprocessable_entity_response(e)
     end
 
     def destroy
       @user.destroy
 
       # head :no_content
-      render json: {
-        status: 'success',
-        message: "#{@user.email} has been deleted Successfully!!!"
-      }, status: :ok
-      # redirect_to root_url
-    rescue ActiveRecord::RecordNotDestroyed => e
-      render json: { errors: e.message }, status: :unprocessable_entity
+      render_no_content_response('User deleted successfully')
+    # rescue ActiveRecord::RecordNotDestroyed => e
+    #   render json: { errors: e.message }, status: :unprocessable_entity
     end
 
     private
@@ -66,8 +62,8 @@ module Api
     def set_user
       # binding.pry
       @user = User.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      render_not_found_response(e.message)
+    # rescue ActiveRecord::RecordNotFound => e
+    #   render_not_found_response(e.message)
     end
 
     def set_current_user
