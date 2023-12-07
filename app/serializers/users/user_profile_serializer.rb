@@ -9,11 +9,11 @@ class Users::UserProfileSerializer < ActiveModel::Serializer
   # def profile
   #   object.profile
   # end
-  # 
+  #
   # def location
   #   object.location
   # end
-  # 
+  #
   # def social_links
   #   object.social_links
   # end

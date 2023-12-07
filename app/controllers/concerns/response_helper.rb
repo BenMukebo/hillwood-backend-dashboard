@@ -1,7 +1,7 @@
 # rubocop: disable Style/HashSyntax
 module ResponseHelper
   require 'will_paginate/array'
-  WillPaginate.per_page = 10  # set per_page globally
+  WillPaginate.per_page = 10 # set per_page globally
 
   # Query params: ?search, ?per_page, ?page
   def render_success_response(message, data, total_page: nil)
@@ -102,15 +102,3 @@ module ResponseHelper
   end
 end
 # rubocop: enable Style/HashSyntax
-
-# rescue_from ActionDispatch::Http::Parameters::ParseError, with: :handle_json_parse_errors
-# before_action :handle_json_parse_errors, if: :json_request?
-
-# def json_request?
-#   request.format.json?
-# end
-
-# rescue_from ApiError do |exception|
-#   log_error(exception)
-#   render json: { error: exception.message }, status: exception.status
-# end
