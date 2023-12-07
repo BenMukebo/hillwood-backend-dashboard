@@ -93,7 +93,8 @@ To run tests, run the following command:
 - Track Ruby and css linter errors run:
 
 ```
-$ rubocop -A    
+$ rubocop -A
+$ rubocop --auto-correct-all
 $ npx stylelint "**/*.{css,scss}"
 ```
 
