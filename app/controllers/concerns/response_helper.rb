@@ -1,14 +1,25 @@
 # rubocop: disable Style/HashSyntax
 module ResponseHelper
-  def render_success_response(message, data)
+  require 'will_paginate/array'
+  WillPaginate.per_page = 10  # set per_page globally
+
+  # Query params: ?search, ?per_page, ?page
+  def render_success_response(message, data, total_page: nil)
+    current_page = params[:page] || 1
+    total_page ||= 1
+    items_per_page = params[:per_page]
+    paginate_data = data.paginate(page: params[:page] || 1, per_page: items_per_page)
+    page_size = paginate_data.count
+
     render json: {
-      success: true, # status: 'SUCCESS'
-      successCode: 200,
+      success: true,
+      # successCode: "S000",
+      statusCode: 200,
       message: message,
-      data: data,
-      currentPage: 1,
-      # perPage: 10,
-      totalPage: 1
+      data: paginate_data,
+      currentPage: current_page.to_i,
+      page_size: page_size,
+      totalPage: total_page
     }, status: :ok
   end
 
