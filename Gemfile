@@ -10,11 +10,15 @@ gem 'rubocop', '>= 1.0', '< 2.0'
 
 gem 'devise_token_auth' # , '~> 1.1', '>= 1.1.4'
 
-gem 'active_model_serializers', '~> 0.10.13'
+gem 'active_model_serializers', '~> 0.10.0'
 # gem 'fast_jsonapi'
-gem 'rack-cors' # , :require => 'rack/cors'
 
 gem 'figaro'
+
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem 'jbuilder'
+
+gem 'rack-cors' # , :require => 'rack/cors'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -41,8 +45,7 @@ gem 'stimulus-rails'
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem 'tailwindcss-rails'
 
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem 'jbuilder'
+gem 'will_paginate', '~> 3.3'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
