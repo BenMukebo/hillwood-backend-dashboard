@@ -3,6 +3,9 @@ class Api::RolesController < ApplicationController
 
   def index
     @roles = Role.all
+
+    # render json: @roles, each_serializer: Roles::RoleSerializer, status: :ok
+    render_success_response('Roles fetched successfully', @roles)
   end
 
   def show; end

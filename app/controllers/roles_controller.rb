@@ -1,13 +1,12 @@
 class RolesController < ApplicationController
   before_action :set_role, only: %i[show edit update destroy]
-  skip_before_action :authenticate_user! #, only: %i[index show]
+  skip_before_action :authenticate_user! # , only: %i[index show]
   # skip_after_action :verify_authorized, only: [:index, :show]
 
   def index
     @roles = Role.all
   end
 
-  # GET /roles/1 or /roles/1.json
   def show; end
 
   def new
