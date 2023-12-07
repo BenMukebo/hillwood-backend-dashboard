@@ -1,10 +1,11 @@
-class RolesController < ApplicationController
+class Api::RolesController < ApplicationController
   before_action :set_role, only: %i[show edit update destroy]
-  skip_before_action :authenticate_user! # , only: %i[index show]
-  # skip_after_action :verify_authorized, only: [:index, :show]
 
   def index
     @roles = Role.all
+
+    # render json: @roles, each_serializer: Roles::RoleSerializer, status: :ok
+    render_success_response('Roles fetched successfully', @roles)
   end
 
   def show; end
@@ -20,10 +21,10 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       if @role.save
-        format.html { redirect_to role_url(@role), notice: 'Role was successfully created.' }
+        # format.html { redirect_to api_role_url(@role), notice: 'Role was successfully created.' }
         format.json { render :show, status: :created, location: @role }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        # format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @role.errors, status: :unprocessable_entity }
       end
     end
@@ -32,10 +33,10 @@ class RolesController < ApplicationController
   def update
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to role_url(@role), notice: 'Role was successfully updated.' }
+        # format.html { redirect_to api_role_url(@role), notice: 'Role was successfully updated.' }
         format.json { render :show, status: :ok, location: @role }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        # format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @role.errors, status: :unprocessable_entity }
       end
     end
@@ -45,7 +46,7 @@ class RolesController < ApplicationController
     @role.destroy!
 
     respond_to do |format|
-      format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
+      # format.html { redirect_to api_roles_url, notice: 'Role was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
