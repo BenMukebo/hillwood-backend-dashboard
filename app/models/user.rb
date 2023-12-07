@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   belongs_to :role
 
   after_initialize :set_default_role, if: :new_record?
+  # after_save :update_posts_counter
+  # after_create :recent_comments
 
   # add sign up validation
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
@@ -21,13 +23,18 @@ class User < ActiveRecord::Base
   validates :phone_number, presence: true, uniqueness: true, length: { minimum: 10, maximum: 15 }
   validates_presence_of :age_group, on: :create
   validates :terms_of_service, acceptance: { accept: true }
-  # validates :privacy_policy, presence: true, inclusion: { in: [true, false] }
   validates_inclusion_of :remember_me, in: [true, false], allow_blank: true
   validates_inclusion_of :welcome_email_send, in: [true, false]
+  # validatables = %i[username email password password_confirmation terms_of_service privacy_policy remember_me welcome_email_send]
+  # validates :validatables, presence: true
 
   AGE_GROUP = { infants: 0, children: 1, adolescents: 2, adults: 3, older: 4 }.freeze
   enum age_group: AGE_GROUP, _prefix: true
-  # validates :age_group, :inclusion => {:in => AGE_GROUP}
+  VERIFY_STATUS = { unverified: 0, verified: 1, pending: 2 }.freeze
+  enum verification_status: VERIFY_STATUS, _default: 'unverified', _prefix: true
+
+  validates :age_group, inclusion: { in: age_groups.keys }
+  validates :verification_status, inclusion: { in: verification_statuses.keys }
 
   def admin?
     role.name == 'admin'
