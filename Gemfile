@@ -10,6 +10,8 @@ gem 'rubocop', '>= 1.0', '< 2.0'
 
 gem 'devise_token_auth' # , '~> 1.1', '>= 1.1.4'
 
+gem 'activeadmin'
+
 gem 'active_model_serializers', '~> 0.10.0'
 # gem 'fast_jsonapi'
 
