@@ -1,4 +1,4 @@
-class Api::RolesController < ApplicationController
+class Api::RolesController < ApiController
   before_action :set_role, only: %i[show edit update destroy]
 
   def index

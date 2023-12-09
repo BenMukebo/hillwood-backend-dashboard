@@ -1,5 +1,5 @@
 # module Api
-class Api::UsersController < ApplicationController
+class Api::UsersController < ApiController
   # require 'will_paginate/array'
   # before_action :authenticate_user!
   before_action :set_user, only: %i[show update destroy]

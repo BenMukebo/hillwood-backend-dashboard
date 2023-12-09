@@ -1,10 +1,5 @@
-# TODO: Change the app for an API one
-# class ApplicationController < ActionController::API
-
 class ApplicationController < ActionController::Base
-  include DeviseTokenAuth::Concerns::SetUserByToken
   include Pundit::Authorization
-  include ResponseHelper
   respond_to :json, :html
 
   before_action :authenticate_user!, unless: :devise_controller?
@@ -14,17 +9,6 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :null_session
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  rescue_from ArgumentError, with: :argument_error
-  # rescue_from ActionDispatch::Http::Parameters::ParseError, with: :argument_error
-  # TODO fix ActionDispatch::Http::Parameters::ParseError (795: unexpected token at ''):
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from ActiveRecord::RecordNotDestroyed, with: :record_not_destroyed
-  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-  rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique
-  rescue_from ActiveRecord::RecordNotSaved, with: :record_not_saved
-  rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique
-  rescue_from ActionController::UnpermittedParameters, with: :unpermitted_parameters
-  rescue_from ActionController::ParameterMissing, with: :parameter_missing
 
   private
 
@@ -34,40 +18,11 @@ class ApplicationController < ActionController::Base
     redirect_back(fallback_location: root_path)
   end
 
-  def argument_error(error)
-    render_argument_error_response("Argument Error: #{error.message}")
-    # render_unprocessable_entity_response('Argument Error: ' + error.message)
-  end
-
-  def record_not_found(error)
-    render_not_found_response(error.message)
-  end
-
-  def record_not_destroyed(error)
-    render_unprocessable_entity_response(error.message)
-  end
-
-  def record_invalid(error)
-    render_unprocessable_entity_response(error.message)
-  end
-
-  def record_not_unique(error)
-    render_unprocessable_entity_response(error.message)
-  end
-
-  def record_not_saved(error)
-    render_unprocessable_entity_response(error.message)
-  end
-
-  def unpermitted_parameters(error)
-    render_unprocessable_entity_response(error.message)
-  end
-
-  def parameter_missing(error)
-    render_unprocessable_entity_response(error.message)
-  end
-
   protected
+
+  # def authenticate_user!
+  #   redirect_to root_path, notice: 'Please sign in' unless user_signed_in?
+  # end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[username phone_number age_group terms_of_service])
