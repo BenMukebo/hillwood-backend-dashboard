@@ -348,6 +348,7 @@ DEPENDENCIES
   bullet
   capybara
   debug
+  devise
   devise_token_auth
   figaro
   importmap-rails
