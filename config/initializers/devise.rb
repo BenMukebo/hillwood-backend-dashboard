@@ -103,10 +103,9 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  # config.skip_session_storage = [:http_auth]
-  # config.skip_session_storage = [:http_auth, :params_auth]
-  # config.skip_session_storage = [:http_auth, :token_auth]
-  config.skip_session_storage = [:http_auth, :params_auth, :token_auth]
+  # config.skip_session_storage = [:http_auth] # initial
+  # config.skip_session_storage = [:http_auth, :params_auth] # This was preventing the admin user from being logged on the Ative admin Dashboard.
+  config.skip_session_storage = [:http_auth, :token_auth]
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -255,7 +254,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
