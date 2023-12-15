@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   # root to: 'admin/dashboard#index'
-  # root "homes#index"
   resources :roles
 
-  mount_devise_token_auth_for 'User', at: 'auth'
+  # mount_devise_token_auth_for 'User', at: 'auth'
   namespace :api, defaults: { format: :json } do
     # root 'articles#index'
     resources :roles, only: %i[index show new edit create update, destroy] # TODO: only index, show

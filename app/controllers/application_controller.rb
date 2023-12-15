@@ -1,22 +1,24 @@
 class ApplicationController < ActionController::Base
+  skip_before_action :verify_authenticity_token
+  # include DeviseTokenAuth::Concerns::SetUserByToken
   include Pundit::Authorization
+  include ResponseHelper
   respond_to :json, :html
 
-  before_action :authenticate_user!, unless: :devise_controller?
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  # before_action :configure_permitted_parameters, if: :devise_controller?
 
-  protect_from_forgery unless: -> { request.format.json? }
+  # protect_from_forgery unless: -> { request.format.json? }
   # protect_from_forgery with: :null_session
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
-  def user_not_authorized
-    flash[:alert] = 'You are not authorized to perform this action.'
-    # flash[:alert] = t("flash.pundit.unauthorized")
-    redirect_back(fallback_location: root_path)
-  end
+  # def user_not_authorized
+  #   # flash[:alert] = 'You are not authorized to perform this action.'
+  #   # flash[:alert] = t("flash.pundit.unauthorized")
+  #   # redirect_back(fallback_location: root_path)
+  # end
 
   protected
 

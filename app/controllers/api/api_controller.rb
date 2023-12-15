@@ -2,17 +2,8 @@
 # class ApplicationController < ActionController::API
 
 class Api::ApiController < ActionController::Base
-  skip_before_action :verify_authenticity_token
-  include DeviseTokenAuth::Concerns::SetUserByToken
-  include Pundit::Authorization
   include ResponseHelper
-  respond_to :json, :html
 
-  # before_action :authenticate_user!, unless: :devise_controller?
-  # before_action :configure_permitted_parameters, if: :devise_controller?
-
-  # protect_from_forgery unless: -> { request.format.json? }
-  protect_from_forgery with: :null_session
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ArgumentError, with: :argument_error
@@ -66,22 +57,6 @@ class Api::ApiController < ActionController::Base
 
   def parameter_missing(error)
     render_unprocessable_entity_response(error.message)
-  end
-
-  protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[username phone_number age_group terms_of_service])
-    devise_parameter_sanitizer.permit(:sign_in, keys: %i[email password remember_me welcome_email_send])
-    devise_parameter_sanitizer.permit(:account_update,
-                                      keys: [:username, :password, :phone_number, :age_group, :verification_status,
-                                             {
-                                               profile: %i[
-                                                 avatar_url bio first_name last_name sex phone_verified date_of_birth interests languages
-                                               ],
-                                               locations: %i[country state city address zip_code countryIsoCode stateIsoCode],
-                                               social_links: %i[facebook twitter instagram linkedin youtube]
-                                             }])
   end
 end
 
