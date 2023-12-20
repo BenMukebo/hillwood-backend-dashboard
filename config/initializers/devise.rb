@@ -19,6 +19,7 @@ Devise.setup do |config|
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
+  # config.parent_controller = 'Api::ApiController'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -103,7 +104,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  # config.skip_session_storage = [:http_auth] # initial
+  # config.skip_session_storage = [:http_auth] # Initial
   # config.skip_session_storage = [:http_auth, :params_auth] # This was preventing the admin user from being logged on the Ative admin Dashboard.
   config.skip_session_storage = [:http_auth, :token_auth]
 
@@ -273,9 +274,10 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  config.navigational_formats = ['*/*', :html, :turbo_stream]
+  # config.navigational_formats = ['*/*', :html, :turbo_stream] # Initial
   # config.navigational_formats = []
   # config.navigational_formats = [:json]
+  config.navigational_formats = ['*/*', :html, :json, :turbo_stream]
   
 
   # The default HTTP method used to sign out a resource. Default is :delete.

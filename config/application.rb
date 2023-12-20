@@ -76,10 +76,6 @@ module HillwoodBackendDashboard
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    # config.api_only = true
-    
-    # config.middleware.use rack::methodoverride
-    # config.middleware.use actiondispatch::flash
-    # config.middleware.use config.session_store, config.session_options
+    config.api_only = true
   end
 end
