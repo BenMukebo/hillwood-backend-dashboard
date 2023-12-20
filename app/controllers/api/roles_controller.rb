@@ -1,4 +1,6 @@
-class Api::RolesController < ApiController
+# class Api::RolesController < ::BaseController
+class Api::RolesController < Api::ApiController
+  # before_action :authenticate_user!
   before_action :set_role, only: %i[show edit update destroy]
 
   def index

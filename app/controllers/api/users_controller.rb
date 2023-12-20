@@ -1,7 +1,7 @@
 # module Api
-class Api::UsersController < ApiController
+class Api::UsersController < Api::ApiController
   # require 'will_paginate/array'
-  # before_action :authenticate_user!
+  # before_action :authenticate_api_user!
   before_action :set_user, only: %i[show update destroy]
   before_action :set_current_user, only: %i[index profile edit]
 
