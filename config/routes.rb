@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     root 'users#index'
-    mount_devise_token_auth_for 'User', at: 'auth' #, base_controller: 'Api::ApiController' # This didn't work
+    mount_devise_token_auth_for 'User', at: 'auth', base_controller: 'Api::ApiController' # This didn't work
     resources :roles, only: %i[index show new edit create update, destroy] # TODO: only index, show
     resources :users, only: %i[index show update, destroy] do # TODO: remove index
       collection do
@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   end
 
   # concern :api_endpoints do
-  #   mount_devise_token_auth_for 'User', at: 'auth' #, base_controller: 'Api::ApiController'
   #   mount_devise_token_auth_for 'User', at: 'api/auth', skip: [:omniauth_callbacks], :defaults => {:format => :json} do
   # end
 

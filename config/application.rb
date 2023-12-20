@@ -1,6 +1,4 @@
 # TODO: Adapt this application and make it an API one
-# add the following line at the top of the Application class definition:
-# config.api_only = true
 
 require_relative 'boot'
 
@@ -32,6 +30,7 @@ module HillwoodBackendDashboard
     # config.serve_static_files = true # Extend for Heroku and production
     config.action_dispatch.rescue_responses['Pundit::NotAuthorizedError'] = :forbidden
 
+    # config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
     config.middleware.use Rack::Cors do
       allow do
         origins '*'
@@ -41,15 +40,6 @@ module HillwoodBackendDashboard
           methods: [:get, :post, :options, :delete, :put]
       end
     end
-
-    # config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
-    #   allow do
-    #     origins '*'
-    #     resource '*',
-    #       headers: :any,
-    #       methods: [:get, :post, :put, :patch, :delete, :options, :head]
-    #   end
-    # end
 
     config.action_mailer.default_url_options = { host: 'localhost', port: 8000 }
 
@@ -74,7 +64,7 @@ module HillwoodBackendDashboard
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = 'Cairo' # "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.api_only = true
   end
