@@ -8,7 +8,9 @@ gem 'rails', '~> 7.0.8'
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
-gem 'devise_token_auth' # , '~> 1.1', '>= 1.1.4'
+gem 'activeadmin' # , '~> 3.1.0'
+gem 'devise' # , '~> 4.9.3'
+gem 'devise_token_auth' # , '~> 1.2.2'
 
 gem 'active_model_serializers', '~> 0.10.0'
 # gem 'fast_jsonapi'
@@ -38,6 +40,9 @@ gem 'importmap-rails'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem 'turbo-rails'
+
+# Use Sass to process CSS
+gem 'sassc-rails'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'

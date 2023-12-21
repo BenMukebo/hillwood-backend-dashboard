@@ -2,14 +2,15 @@ class User < ActiveRecord::Base
   extend Devise::Models
 
   # Include default devise modules. Others available are:
-  # :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # :lockable, :timeoutable, and :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable, :trackable,
          :recoverable, :rememberable, :validatable
-  devise :database_authenticatable, :registerable, :confirmable
   include DeviseTokenAuth::Concerns::User
 
-  belongs_to :role
+  # if using Devise::JWT add =>
+  # self.skip_session_storage = [:http_auth, :params_auth] # https://github.com/waiting-for-dev/devise-jwt#session-storage-caveat
 
+  belongs_to :role
   after_initialize :set_default_role, if: :new_record?
   # after_save :update_posts_counter
   # after_create :recent_comments

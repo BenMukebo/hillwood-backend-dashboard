@@ -15,3 +15,5 @@ if Rails.env.development?
     Role.find_or_create_by!(name: name)
   end
 end
+
+AdminUser.create!(email: 'admin@gmail.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
