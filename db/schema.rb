@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_07_180347) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_21_231637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_180347) do
     t.index ["social_links"], name: "index_users_on_social_links", using: :gin
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.string "url"
+    t.string "mime_type"
+    t.integer "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "users", "roles"
