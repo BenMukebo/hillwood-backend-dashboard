@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   # if using Devise::JWT add =>
-  # self.skip_session_storage = [:http_auth, :params_auth] # https://github.com/waiting-for-dev/devise-jwt#session-storage-caveat
+  # self.skip_session_storage = [:http_auth, :params_auth]
 
   belongs_to :role
   after_initialize :set_default_role, if: :new_record?
@@ -39,6 +39,19 @@ class User < ActiveRecord::Base
 
   def admin?
     role.name == 'admin'
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[age_group allow_password_change confirmation_sent_at confirmation_token confirmed_at
+       created_at current_sign_in_at current_sign_in_ip email encrypted_password id
+       last_sign_in_at last_sign_in_ip location phone_number profile provider remember_created_at
+       remember_me reset_password_sent_at reset_password_token role_id sign_in_count social_links
+       terms_of_service tokens uid unconfirmed_email updated_at username verification_status
+       welcome_email_send]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    ['role']
   end
 
   private
