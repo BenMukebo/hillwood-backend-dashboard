@@ -7,9 +7,10 @@ class Api::UsersController < Api::ApiController
 
   def index
     @users = if params[:search].present?
-               User.where('username LIKE :search OR email LIKE :search', search: "%#{params[:search]}%")
+               User.includes(:role).where('username LIKE :search OR email LIKE :search', search: "%#{params[:search]}%")
              else
-               User.all.to_a
+               User.includes(:role).all.to_a
+               # User.includes(:profile, :location, :social_links).all
              end
     if @users.any?
       # render json: @users, each_serializer: Users::UserSerializer, status: :ok
@@ -72,7 +73,7 @@ class Api::UsersController < Api::ApiController
   end
 
   def set_current_user
-    @current_user = current_user
+    @current_user = current_api_user
   end
 
   # Only allow a list of trusted parameters through.

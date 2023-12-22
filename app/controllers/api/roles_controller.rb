@@ -4,7 +4,7 @@ class Api::RolesController < Api::ApiController
   before_action :set_role, only: %i[show edit update destroy]
 
   def index
-    @roles = Role.all
+    @roles = Role.includes(:users).all
 
     # render json: @roles, each_serializer: Roles::RoleSerializer, status: :ok
     render_success_response('Roles fetched successfully', @roles)
