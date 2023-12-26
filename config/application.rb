@@ -1,8 +1,8 @@
 # TODO: Adapt this application and make it an API one
 
 require_relative 'boot'
-
 require "rails"
+require "rails/all"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -13,9 +13,6 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
-
-require_relative "boot"
-require "rails/all"
 # require 'letter_opener' if Rails.env.development? # To fix Invalid delivery method :letter_opener error
 
 # Require the gems listed in Gemfile, including any gems
@@ -47,6 +44,7 @@ module HillwoodBackendDashboard
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     # config.autoload_lib(ignore: %w(assets tasks))  TODO: Not sure about this line
+    # config.assets.enabled = true
 
     # Emcomment these three line to fix ActionDispatch::Request::Session::DisabledSessionError when enable config.api_only = true
     config.session_store :cookie_store, key: '_interslice_session'
