@@ -10,7 +10,6 @@ class Api::MovieGenresController < Api::ApiController
     render_success_response('Genres movie fetched successfully', @movie_genres, serializer: MovieGenres::MovieGenreSerializer)
   end
 
-
   def show; end
 
   def create
