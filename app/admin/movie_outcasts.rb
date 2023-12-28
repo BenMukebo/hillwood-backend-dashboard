@@ -1,4 +1,4 @@
-ActiveAdmin.register MovieWritter do
+ActiveAdmin.register MovieOutcast do
   permit_params :avatar_url, :first_name, :last_name, :personal_details, :status
 
   json_editor
@@ -9,15 +9,16 @@ ActiveAdmin.register MovieWritter do
     column :avatar_url
     column :first_name
     column :last_name
+    column :personal_details
     column :status
     actions
   end
 
   show do
     attributes_table do
+      row :avatar_url
       row :first_name
       row :last_name
-      row :avatar_url
       row :personal_details
       row :status
       row :created_at
@@ -27,10 +28,11 @@ ActiveAdmin.register MovieWritter do
   end
 
   form do |f|
-    f.inputs 'MovieWritter Input' do
+    f.inputs 'MovieOutcast Input' do
+      f.input :avatar_url
       f.input :first_name
       f.input :last_name
-      f.input :avatar_url
+      f.input :personal_details
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
     end
@@ -40,7 +42,7 @@ ActiveAdmin.register MovieWritter do
   # or
   #
   # permit_params do
-  #   permitted = [:first_name, :last_name, :avatar_url, :personal_details, :status]
+  #   permitted = [:avatar_url, :first_name, :last_name, :personal_details, :status]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
