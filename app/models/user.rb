@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   enum verification_status: VERIFY_STATUS, _default: 'unverified', _prefix: true
 
   validates :age_group, inclusion: { in: age_groups.keys }
-  validates :verification_status, inclusion: { in: verification_statuses.keys }
+  validates :verification_status, presence: true, inclusion: { in: verification_statuses.keys }
 
   def admin?
     role.name == 'admin'

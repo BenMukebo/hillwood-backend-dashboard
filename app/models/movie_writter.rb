@@ -6,4 +6,8 @@ class MovieWritter < ApplicationRecord
 
   enum status: { default: 0, active: 1, inactive: 2 }, _default: 'default', _prefix: true
   validates :status, presence: true, inclusion: { in: statuses.keys }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[avatar_url created_at first_name id last_name personal_details status updated_at]
+  end
 end
