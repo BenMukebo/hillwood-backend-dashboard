@@ -79,9 +79,9 @@ class Api::UsersController < Api::ApiController
   def user_params
     params.require(:user).permit(
       :username, :password, :phone_number, :age_group, :verification_status,
-      { profile: %i[avatar_url bio date_of_birth first_name last_name phone_verified interests languages privacy_policy sex] },
+      { profile: %i[avatar_url bio date_of_birth first_name last_name interests languages phone_verified sex] },
       { location: %i[country state city zip_code address] },
-      { social_links: %i[facebook twitter instagram linkedin youtube] }
+      { social_links: %i[facebook instagram linkedin twitter youtube] }
     )
   end
 end

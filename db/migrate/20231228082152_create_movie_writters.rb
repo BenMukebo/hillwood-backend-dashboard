@@ -4,7 +4,7 @@ class CreateMovieWritters < ActiveRecord::Migration[7.0]
       t.string :first_name
       t.string :last_name
       t.string :avatar_url
-      t.jsonb :personal_details, null: false, default: { address: nil, bio: nil, date_of_birth: nil, first_name: nil, last_name: nil, sex: nil, interests: [], languages: [] }
+      t.jsonb :personal_details, null: false, default: { address: nil, bio: nil, date_of_birth: nil, first_name: nil, last_name: nil, sex: nil, interests: nil, languages: nil }
       t.integer :status
 
       t.timestamps

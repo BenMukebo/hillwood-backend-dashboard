@@ -1,4 +1,6 @@
 ActiveAdmin.register User do
+  json_editor
+
   index do
     selectable_column
     id_column
@@ -22,9 +24,9 @@ ActiveAdmin.register User do
       row :welcome_email_send
       row :role_id
       row :verification_status
-      row :profile
-      row :location
-      row :social_links
+      row :profile, as: :json
+      row :location, as: :json
+      row :social_links, as: :json
       row :created_at
       row :confirmed_at
       row :last_sign_in_at
@@ -44,6 +46,9 @@ ActiveAdmin.register User do
       f.input :role_id
       f.input :welcome_email_send
       f.input :terms_of_service
+      f.input :profile, as: :json
+      f.input :location, as: :json
+      f.input :social_links, as: :json
     end
     f.actions
   end

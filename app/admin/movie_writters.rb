@@ -1,4 +1,8 @@
 ActiveAdmin.register MovieWritter do
+  permit_params :first_name, :last_name, :avatar_url, :personal_details, :status
+
+  json_editor
+
   index do
     selectable_column
     id_column
@@ -27,13 +31,12 @@ ActiveAdmin.register MovieWritter do
       f.input :first_name
       f.input :last_name
       f.input :avatar_url
-      f.input :personal_details
-      f.input :status
+      f.input :personal_details, as: :json
+      f.input :status, as: :select, collection: MovieWritter.statuses.keys
     end
     f.actions
   end
 
-  permit_params :first_name, :last_name, :avatar_url, :personal_details, :status
   #
   # or
   #
