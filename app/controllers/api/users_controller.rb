@@ -7,29 +7,26 @@ class Api::UsersController < Api::ApiController
 
   def index
     @users = if params[:search].present?
-               User.where('username LIKE :search OR email LIKE :search', search: "%#{params[:search]}%")
+               User.includes(:role).where('username LIKE :search OR email LIKE :search', search: "%#{params[:search]}%")
              else
-               User.all.to_a
+               User.includes(:role).all.to_a
              end
     if @users.any?
       # render json: @users, each_serializer: Users::UserSerializer, status: :ok
       # @users.paginate(page: params[:page] || 1, per_page: @items_per_page),
-      @items_per_page = params[:per_page] || 10
-      @total_page = (@users.count / @items_per_page.to_f).ceil
-      render_success_response('Users fetched successfully', @users, total_page: @total_page)
+      render_success_response('Users fetched successfully', @users, serializer: Users::UserSerializer)
     else
-      render_not_found_response('No users fozzzund with the given search criteria.')
+      render_not_found_response("No users #{params[:search]} with the given search criteria.")
     end
   end
 
   def show
-    render json: @user, serializer: Users::UserSerializer, status: :ok # UserProfileSerializer
-    # render_success_response('User fetched successfully', @user)
+    # render json: @user, serializer: Users::UserSerializer, status: :ok # UserProfileSerializer
+    render_show_response('User fetched successfully', @user, serializer: Users::UserSerializer)
   end
 
   def profile
-    render json: @current_user, serializer: Users::UserSerializer, status: :ok
-    # render_success_response('Profile fetched successfully', @current_user)
+    render_show_response('Profile fetched successfully', @current_user, serializer: Users::UserProfileSerializer)
   end
 
   def update
@@ -72,7 +69,7 @@ class Api::UsersController < Api::ApiController
   end
 
   def set_current_user
-    @current_user = current_user
+    @current_user = current_api_user
   end
 
   # Only allow a list of trusted parameters through.
