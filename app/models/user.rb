@@ -16,9 +16,10 @@ class User < ActiveRecord::Base
   # after_create :recent_comments
 
   # add sign up validation
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
   # , on: :update, unless: :admin? # , on: :create, unless: :admin?
-  validates :email, presence: true
+  validates :email, uniqueness: { case_sensitive: false },
+                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
   validates :password, presence: true, length: { minimum: 8 }, on: :create
   validates :password_confirmation, presence: true, allow_blank: true
   validates :phone_number, presence: true, uniqueness: true, length: { minimum: 10, maximum: 15 }
@@ -40,6 +41,16 @@ class User < ActiveRecord::Base
   def admin?
     role.name == 'admin'
   end
+
+  # Override the as_json method to customize the token payload
+  # def as_json(options = {})
+  #   super(options).merge(
+  #     user_id: id,
+  #     email: email,
+  #     username: username
+  #     # Add any other custom claims you need
+  #   )
+  # end
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[age_group allow_password_change confirmation_sent_at confirmation_token confirmed_at

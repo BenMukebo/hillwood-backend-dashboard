@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_115646) do
     t.bigint "role_id", null: false
     t.jsonb "profile", default: "{}", null: false
     t.jsonb "location", default: "{}", null: false
-    t.jsonb "social_links"
+    t.jsonb "social_links", default: "{}", null: false
     t.integer "verification_status"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
