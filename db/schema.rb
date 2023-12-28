@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_082152) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_28_132428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,11 +52,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_082152) do
     t.index ["name"], name: "index_movie_genres_on_name", unique: true
   end
 
-  create_table "movie_writters", force: :cascade do |t|
+  create_table "movie_outcasts", force: :cascade do |t|
+    t.string "avatar_url"
     t.string "first_name"
     t.string "last_name"
+    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil, "last_name"=>nil, "first_name"=>nil, "date_of_birth"=>nil}, null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["personal_details"], name: "index_movie_outcasts_on_personal_details", using: :gin
+  end
+
+  create_table "movie_writters", force: :cascade do |t|
     t.string "avatar_url"
-    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "address"=>nil, "interests"=>[], "languages"=>[], "last_name"=>nil, "first_name"=>nil, "date_of_birth"=>nil}, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil, "last_name"=>nil, "first_name"=>nil, "date_of_birth"=>nil}, null: false
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -98,9 +109,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_082152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "role_id", null: false
-    t.jsonb "profile", default: "{}", null: false
-    t.jsonb "location", default: "{}", null: false
-    t.jsonb "social_links", default: "{}", null: false
+    t.jsonb "profile", default: {"bio"=>nil, "sex"=>nil, "interests"=>"[]", "languages"=>"[]", "last_name"=>nil, "avatar_url"=>nil, "first_name"=>nil, "date_of_birth"=>nil, "phone_verified"=>false}, null: false
+    t.jsonb "location", default: {"city"=>nil, "state"=>nil, "address"=>"", "country"=>nil, "zip_code"=>nil}, null: false
+    t.jsonb "social_links", default: {"twitter"=>nil, "youtube"=>nil, "facebook"=>nil, "linkedin"=>nil, "instagram"=>nil}, null: false
     t.integer "verification_status"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
