@@ -51,15 +51,13 @@ class Api::MovieWrittersController < Api::ApiController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_movie_writter
     @movie_writter = MovieWritter.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def movie_writter_params
     params.require(:movie_writter).permit(
-      :first_name, :last_name, :avatar_url, :status, { personal_details:
+      :avatar_url, :first_name, :last_name, :status, { personal_details:
       %i[address bio date_of_birth first_name last_name phone_number interests languages sex] }
     )
   end

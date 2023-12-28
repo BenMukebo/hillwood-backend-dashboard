@@ -18,12 +18,14 @@ Rails.application.routes.draw do
     put '/edit-profile', to: 'users#edit'
     resources :videos, only: %i[index show create update, destroy]
     resources :movie_writters, only: %i[index show create update destroy]
+    resources :movie_outcasts, only: %i[index show create update destroy]
     
     scope '/options' do
       # resources :movie_genres, only: %i[index], path: 'movie-genres', as: 'movie_genres'
       # resources :movie_genres, path: 'movie-genres', only: %i[index]
       get 'movie-genres', to: 'movie_genres#options'
       get 'movie-writters', to: 'movie_writters#options'
+      get 'movie-outcasts', to: 'movie_outcasts#options'
 
     end
 
