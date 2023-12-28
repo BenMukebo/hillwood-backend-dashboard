@@ -13,7 +13,11 @@ class MovieOutcastsControllerTest < ActionDispatch::IntegrationTest
   test 'should create movie_outcast' do
     assert_difference('MovieOutcast.count') do
       post movie_outcasts_url,
-           params: { movie_outcast: { avatar_url: @movie_outcast.avatar_url, first_name: @movie_outcast.first_name, last_name: @movie_outcast.last_name, personal_details: @movie_outcast.personal_details, status: @movie_outcast.status } }, as: :json
+           params: { movie_outcast: {
+             avatar_url: @movie_outcast.avatar_url,
+             first_name: @movie_outcast.first_name, last_name: @movie_outcast.last_name,
+             personal_details: @movie_outcast.personal_details, status: @movie_outcast.status
+           } }, as: :json
     end
 
     assert_response :created
@@ -26,7 +30,9 @@ class MovieOutcastsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update movie_outcast' do
     patch movie_outcast_url(@movie_outcast),
-          params: { movie_outcast: { avatar_url: @movie_outcast.avatar_url, first_name: @movie_outcast.first_name, last_name: @movie_outcast.last_name, personal_details: @movie_outcast.personal_details, status: @movie_outcast.status } }, as: :json
+          params: { movie_outcast: { avatar_url: @movie_outcast.avatar_url,
+                                     first_name: @movie_outcast.first_name, last_name: @movie_outcast.last_name,
+                                     personal_details: @movie_outcast.personal_details, status: @movie_outcast.status } }, as: :json
     assert_response :success
   end
 
