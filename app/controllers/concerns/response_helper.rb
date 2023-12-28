@@ -30,14 +30,18 @@ module ResponseHelper
     }, status: :ok
   end
 
-  def render_show_response(message, data, serializer: nil)
-    render json: {
+  def render_show_response(message, data, serializer: nil, location: nil)
+    response_hash = {
       success: true,
       # successCode: "S000",
       statusCode: 201,
       message: message,
       data: serializer ? ActiveModelSerializers::SerializableResource.new(data, serializer: serializer).as_json : data
-    }, status: :ok
+    }
+
+    # response_hash[:location] = location if location.present? # this add the location to both response header and body
+    render json: response_hash, status: :ok
+    response.headers['Location'] = location if location.present?
   end
 
   def render_not_found_response(message)
