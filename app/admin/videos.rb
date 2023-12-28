@@ -1,10 +1,34 @@
 ActiveAdmin.register Video do
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :url, :mime_type, :status
+  index do
+    selectable_column
+    id_column
+    column :url
+    column :mime_type
+    column :status
+    # actions
+  end
+
+  show do
+    attributes_table do
+      row :url
+      row :mime_type
+      row :status
+      row :created_at
+      row :updated_at
+    end
+    active_admin_comments
+  end
+
+  form do |f|
+    f.inputs 'Video Details' do
+      f.input :url
+      f.input :mime_type
+      f.input :status
+    end
+    f.actions
+  end
+
+  permit_params :url, :mime_type, :status
   #
   # or
   #

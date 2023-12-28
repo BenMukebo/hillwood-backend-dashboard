@@ -6,31 +6,54 @@ ActiveAdmin.register User do
     column :username
     column :phone_number
     column :age_group
-    column :terms_of_service
-    column :welcome_email_send
     column :role_id
     # column :location
-    column :verification_status
-    column :created_at
-    column :confirmed_at
-    column :last_sign_in_at
+    column 'Verification', :verification_status
     actions
-    # default_actions
   end
 
   show do
     attributes_table do
       row :username
       row :email
+      row :phone_number
+      row :age_group
+      row :terms_of_service
+      row :welcome_email_send
+      row :role_id
+      row :verification_status
+      row :profile
+      row :location
+      row :social_links
       row :created_at
+      row :confirmed_at
+      row :last_sign_in_at
     end
     active_admin_comments
   end
 
+  form do |f|
+    f.inputs 'User Details' do
+      f.input :email
+      f.input :username
+      f.input :password
+      f.input :password_confirmation
+      f.input :phone_number
+      f.input :age_group
+      f.input :verification_status
+      f.input :role_id
+      f.input :welcome_email_send
+      f.input :terms_of_service
+    end
+    f.actions
+  end
+
   belongs_to :role, optional: true
-  permit_params :email, :username, :phone_number, :age_group, :terms_of_service, :welcome_email_send, :role_id,
-                :verification_status, profile: %i[avatar_url first_name last_name sex phone_verified date_of_birth],
-                                      location: %i[country state city zip_code address]
+
+  permit_params :email, :username, :password, :password_confirmation, :phone_number, :age_group, :terms_of_service,
+                :welcome_email_send, :role_id, :verification_status,
+                profile: %i[avatar_url first_name last_name sex phone_verified date_of_birth],
+                location: %i[country state city zip_code address]
 
   # OR
   # permit_params do

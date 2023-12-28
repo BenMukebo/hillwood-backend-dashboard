@@ -15,12 +15,12 @@ ActiveAdmin.register MovieGenre do
     active_admin_comments
   end
 
-  # form do |f|
-  #   f.inputs 'MovieGenre Details' do
-  #     f.input :name
-  #   end
-  #   f.actions
-  # end
+  form do |f|
+    f.inputs 'MovieGenre Input' do
+      f.input :name
+    end
+    f.actions
+  end
 
   permit_params :name
 
