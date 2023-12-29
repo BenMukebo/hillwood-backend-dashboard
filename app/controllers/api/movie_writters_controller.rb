@@ -2,7 +2,7 @@ class Api::MovieWrittersController < Api::ApiController
   before_action :set_movie_writter, only: %i[show update destroy]
 
   def index
-    @movie_writters = MovieWritter.all
+    @movie_writters = MovieWritter.includes(:movies).all.to_a
 
     # render json: @movie_writters, each_serializer: MovieWritters::MovieWritterSerializer, status: :ok
     render_success_response('Writters movie full details fetched successfully', @movie_writters,

@@ -2,7 +2,7 @@ class Api::VideosController < Api::ApiController
   before_action :set_video, only: %i[show update destroy]
 
   def index
-    @videos = Video.all
+    @videos = Video.includes(:movie).all
     # render json: @videos, each_serializer: Videos::VideoSerializer, status: :ok
     render_success_response('Videos fetched successfully', @videos,
                             serializer: Videos::VideoSerializer)
