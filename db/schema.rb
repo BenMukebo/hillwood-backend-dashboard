@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_132428) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_28_214945) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_132428) do
     t.index ["personal_details"], name: "index_movie_writters_on_personal_details", using: :gin
   end
 
+  create_table "movies", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "category"
+    t.string "image_url"
+    t.jsonb "content_details", default: {"country"=>nil, "languages"=>"[]"}, null: false
+    t.integer "views_counter", default: 0, null: false
+    t.integer "likes_counter", default: 0, null: false
+    t.integer "comments_counter", default: 0, null: false
+    t.integer "status"
+    t.bigint "movie_genre_id", null: false
+    t.bigint "video_link_id"
+    t.bigint "trailer_link_id"
+    t.bigint "movie_writter_id"
+    t.bigint "movie_outcast_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_details"], name: "index_movies_on_content_details", using: :gin
+    t.index ["movie_genre_id"], name: "index_movies_on_movie_genre_id"
+    t.index ["movie_outcast_id"], name: "index_movies_on_movie_outcast_id"
+    t.index ["movie_writter_id"], name: "index_movies_on_movie_writter_id"
+    t.index ["name"], name: "index_movies_on_name", unique: true
+    t.index ["trailer_link_id"], name: "index_movies_on_trailer_link_id"
+    t.index ["video_link_id"], name: "index_movies_on_video_link_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.integer "name", null: false
     t.datetime "created_at", null: false
@@ -126,12 +152,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_132428) do
   end
 
   create_table "videos", force: :cascade do |t|
-    t.string "url"
-    t.string "mime_type"
-    t.integer "status", null: false
+    t.string "url", null: false
+    t.integer "status"
+    t.jsonb "details", default: {"caption"=>nil, "duration"=>nil, "dimention"=>nil, "mime_type"=>nil, "definition"=>nil}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["details"], name: "index_videos_on_details", using: :gin
   end
 
+  add_foreign_key "movies", "movie_genres"
+  add_foreign_key "movies", "movie_outcasts"
+  add_foreign_key "movies", "movie_writters"
+  add_foreign_key "movies", "videos", column: "trailer_link_id"
+  add_foreign_key "movies", "videos", column: "video_link_id"
   add_foreign_key "users", "roles"
 end
