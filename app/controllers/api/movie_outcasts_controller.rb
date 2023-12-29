@@ -11,7 +11,7 @@ class Api::MovieOutcastsController < Api::ApiController
   def options
     @movie_outcasts = MovieOutcast.all
 
-    render_success_response('Outcasts movie options fetched successfully', @movie_outcasts,
+    render_success_response('Outcasts movie options', @movie_outcasts,
                             serializer: MovieOutcasts::MovieOutcastOptionSerializer)
   end
 

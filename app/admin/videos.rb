@@ -1,18 +1,21 @@
 ActiveAdmin.register Video do
+  permit_params :url, :status, details: %i[duration definition dimention size caption language mime_type]
+
+  json_editor
+
   index do
     selectable_column
     id_column
     column :url
-    column :mime_type
     column :status
-    # actions
+    actions
   end
 
   show do
     attributes_table do
       row :url
-      row :mime_type
       row :status
+      row :details, as: :json
       row :created_at
       row :updated_at
     end
@@ -22,14 +25,12 @@ ActiveAdmin.register Video do
   form do |f|
     f.inputs 'Video Details' do
       f.input :url
-      f.input :mime_type
       f.input :status
+      f.input :details, as: :json
     end
     f.actions
   end
 
-  permit_params :url, :mime_type, :status
-  #
   # or
   #
   # permit_params do

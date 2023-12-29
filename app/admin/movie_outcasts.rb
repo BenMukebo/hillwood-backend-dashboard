@@ -9,7 +9,6 @@ ActiveAdmin.register MovieOutcast do
     column :avatar_url
     column :first_name
     column :last_name
-    column :personal_details
     column :status
     actions
   end
@@ -32,7 +31,6 @@ ActiveAdmin.register MovieOutcast do
       f.input :avatar_url
       f.input :first_name
       f.input :last_name
-      f.input :personal_details
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
     end

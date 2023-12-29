@@ -12,7 +12,7 @@ class Api::MovieWrittersController < Api::ApiController
   def options
     @movie_writters = MovieWritter.all
 
-    render_success_response('Writters movie options fetched successfully', @movie_writters,
+    render_success_response('Writters movie options', @movie_writters,
                             serializer: MovieWritters::MovieWritterOptionSerializer)
   end
 

@@ -1,4 +1,6 @@
 class MovieWritter < ApplicationRecord
+  has_many :movies, dependent: :destroy
+
   validates_presence_of :first_name, :last_name, :avatar_url
   validates :first_name, :last_name, length: { minimum: 3, maximum: 50 }
   validates :avatar_url, format: { with: URI::DEFAULT_PARSER.make_regexp }
@@ -9,5 +11,9 @@ class MovieWritter < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[avatar_url created_at first_name id last_name personal_details status updated_at]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    ['movies']
   end
 end
