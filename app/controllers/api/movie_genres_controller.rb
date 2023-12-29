@@ -2,7 +2,7 @@ class Api::MovieGenresController < Api::ApiController
   # before_action :set_movie_genre, only: %i[show update destroy]
 
   def options
-    @movie_genres = MovieGenre.all
+    @movie_genres = MovieGenre.includes(:movies).all.to_a
 
     render_success_response('Genres movie fetched successfully', @movie_genres,
                             serializer: MovieGenres::MovieGenreOptionSerializer)
