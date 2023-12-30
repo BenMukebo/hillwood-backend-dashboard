@@ -6,10 +6,13 @@ class Movie < ApplicationRecord
   belongs_to :movie_genre
 
   belongs_to :video_link, class_name: 'Video', optional: true # , foreign_key: :video_link_id
-  belongs_to :trailer_link, class_name: 'Video' # , optional: true # , foreign_key: :trailer_link_id
+  belongs_to :trailer_link, class_name: 'Video', optional: true # , foreign_key: :trailer_link_id
 
   # belongs_to :trailer_link, class_name: 'Video', optional: true
   # belongs_to :movie_outcast
+
+  has_many :movie_comments, dependent: :destroy
+  has_many :movie_likes, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 60 }
   validates :description, presence: true, length: { minimum: 12, maximum: 1200 }
@@ -30,7 +33,7 @@ class Movie < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[movie_genre movie_outcasts movie_writter trailer_link video_link]
+    %w[movie_genre movie_outcasts movie_writter trailer_link video_link movie_comments movie_likes]
   end
 
   # def self.ransackable_attributes(_auth_object = nil)
