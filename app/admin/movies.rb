@@ -15,7 +15,6 @@ ActiveAdmin.register Movie do
   # belongs_to :movie_writter
   # navigation_menu :movie_writter
 
-
   index do
     selectable_column
     id_column

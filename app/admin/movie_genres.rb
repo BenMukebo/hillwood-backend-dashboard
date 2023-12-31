@@ -24,7 +24,6 @@ ActiveAdmin.register MovieGenre do
     f.actions
   end
 
-
   # permit_params do
   #   permitted = [:name]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?

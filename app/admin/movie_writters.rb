@@ -29,8 +29,8 @@ ActiveAdmin.register MovieWritter do
       row :updated_at
       # row: movie_ids
       table_for movie_writter.movies.order('name ASC') do
-        column "movies" do |movie|
-          link_to movie.name, [ :admin, movie ] # item_path(movie) TODO: Understand the :admin
+        column 'movies' do |movie|
+          link_to movie.name, [:admin, movie] # item_path(movie) TODO: Understand the :admin
         end
       end
     end
@@ -44,7 +44,7 @@ ActiveAdmin.register MovieWritter do
       f.input :avatar_url
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
-      f.input :movies, :as => :check_boxes
+      f.input :movies, as: :check_boxes
     end
     f.actions
   end

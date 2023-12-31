@@ -20,9 +20,10 @@ class User < ActiveRecord::Base
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   # uniqueness: { case_sensitive: false },
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
-  validates :password, length: { minimum: 8 }, on: :create
+  validates :password, presence: true, length: { minimum: 8 }, on: :create, allow_blank: true
   validates :password_confirmation, presence: true, allow_blank: true
-  validates :phone_number, presence: true, uniqueness: true, length: { minimum: 10, maximum: 13 }
+  validates :phone_number, presence: true, uniqueness: true,
+                           length: { minimum: 10, maximum: 13 }, on: :create, allow_blank: false
   validates_presence_of :age_group, on: :create
   validates :terms_of_service, acceptance: { accept: true }
   validates_inclusion_of :remember_me, in: [true, false], allow_blank: true

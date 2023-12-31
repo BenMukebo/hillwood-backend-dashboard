@@ -5,10 +5,11 @@ class Movie < ApplicationRecord
 
   belongs_to :movie_genre
 
-  belongs_to :video_link, class_name: 'Video', optional: true # , foreign_key: :video_link_id
-  belongs_to :trailer_link, class_name: 'Video', optional: true # , foreign_key: :trailer_link_id
+  belongs_to :video_link, class_name: 'VideoLink', optional: true # , foreign_key: :video_link_id
+  belongs_to :trailer_link, class_name: 'TrailerLink', optional: true # , foreign_key: :trailer_link_id
 
-  # belongs_to :trailer_link, class_name: 'Video', optional: true
+  # has_one :trailer_link, foreign_key: :video_link_id
+  # has_one :video_link, foreign_key: :trailer_link_id
   # belongs_to :movie_outcast
 
   has_many :movie_comments, dependent: :destroy
