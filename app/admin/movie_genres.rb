@@ -1,4 +1,6 @@
 ActiveAdmin.register MovieGenre do
+  permit_params :name
+
   index do
     selectable_column
     id_column
@@ -22,7 +24,6 @@ ActiveAdmin.register MovieGenre do
     f.actions
   end
 
-  permit_params :name
 
   # permit_params do
   #   permitted = [:name]

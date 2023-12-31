@@ -1,12 +1,15 @@
 ActiveAdmin.register MovieWritter do
-  permit_params :avatar_url, :first_name, :last_name, :personal_details, :status
+  permit_params :avatar_url, :first_name, :last_name, :personal_details, :status, movie_ids: []
+  # has_many :movies
 
   json_editor
 
   index do
     selectable_column
     id_column
-    column :avatar_url
+    column :avatar_url do |movie_writter|
+      image_tag movie_writter.avatar_url, width: 40, height: 40, class: 'movie_writter_avatar'
+    end
     column :first_name
     column :last_name
     column :status
@@ -17,11 +20,19 @@ ActiveAdmin.register MovieWritter do
     attributes_table do
       row :first_name
       row :last_name
-      row :avatar_url
+      row :avatar_url do |movie_writter|
+        image_tag movie_writter.avatar_url, width: 70, height: 70, class: 'movie_writter_avatar'
+      end
       row :personal_details
       row :status
       row :created_at
       row :updated_at
+      # row: movie_ids
+      table_for movie_writter.movies.order('name ASC') do
+        column "movies" do |movie|
+          link_to movie.name, [ :admin, movie ] # item_path(movie) TODO: Understand the :admin
+        end
+      end
     end
     active_admin_comments
   end
@@ -33,6 +44,7 @@ ActiveAdmin.register MovieWritter do
       f.input :avatar_url
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
+      f.input :movies, :as => :check_boxes
     end
     f.actions
   end

@@ -8,7 +8,7 @@ ActiveAdmin.register User do
     column :username
     column :phone_number
     column :age_group
-    column :role_id
+    column :role
     # column :location
     column 'Verification', :verification_status
     actions
@@ -22,7 +22,7 @@ ActiveAdmin.register User do
       row :age_group
       row :terms_of_service
       row :welcome_email_send
-      row :role_id
+      row :role
       row :verification_status
       row :profile, as: :json
       row :location, as: :json
@@ -38,12 +38,12 @@ ActiveAdmin.register User do
     f.inputs 'User Details' do
       f.input :email
       f.input :username
-      f.input :password
-      f.input :password_confirmation
+      # f.input :password
+      # f.input :password_confirmation
       f.input :phone_number
       f.input :age_group
       f.input :verification_status
-      f.input :role_id
+      f.input :role
       f.input :welcome_email_send
       f.input :terms_of_service
       f.input :profile, as: :json
@@ -53,7 +53,7 @@ ActiveAdmin.register User do
     f.actions
   end
 
-  belongs_to :role, optional: true
+  # belongs_to :role, optional: true
 
   permit_params :email, :username, :password, :password_confirmation, :phone_number, :age_group, :terms_of_service,
                 :welcome_email_send, :role_id, :verification_status,

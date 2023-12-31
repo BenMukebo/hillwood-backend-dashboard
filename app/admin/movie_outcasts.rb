@@ -6,7 +6,9 @@ ActiveAdmin.register MovieOutcast do
   index do
     selectable_column
     id_column
-    column :avatar_url
+    column :avatar_url do |movie_outcast|
+      image_tag movie_outcast.avatar_url, width: 40, height: 40, class: 'movie_writter_avatar'
+    end
     column :first_name
     column :last_name
     column :status
@@ -15,9 +17,11 @@ ActiveAdmin.register MovieOutcast do
 
   show do
     attributes_table do
-      row :avatar_url
       row :first_name
       row :last_name
+      row :avatar_url do |movie_outcast|
+        image_tag movie_outcast.avatar_url, width: 40, height: 40, class: 'movie_writter_avatar'
+      end
       row :personal_details
       row :status
       row :created_at
