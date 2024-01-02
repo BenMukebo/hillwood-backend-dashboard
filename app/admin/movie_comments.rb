@@ -27,8 +27,8 @@ ActiveAdmin.register MovieComment do
     f.inputs 'MovieComment Input' do
       f.input :text
       # f.input :likes_counter
-      # f.input :movie_id
-      # f.input :user_id
+      f.input :movie
+      f.input :user # TODO: let's use current_admin_user intead of userselecting a user
     end
     f.actions
   end

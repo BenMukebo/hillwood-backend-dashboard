@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :movie_writters, only: %i[index show create update destroy]
     resources :movie_outcasts, only: %i[index show create update destroy]
     resources :movies, only: %i[index show create update destroy]
+    resources :movie_likes, only: %i[index show create update destroy]
+    resources :movie_comments, only: %i[index show create update destroy]
     # resources :likes, only: %i[create update destroy]
     # resources :comments, only: %i[create update destroy]
     

@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   # self.skip_session_storage = [:http_auth, :params_auth]
 
   belongs_to :role
+  has_many :movie_comments
+  has_one :movie_like
+
   after_initialize :set_default_role, if: :new_record?
   # after_save :update_posts_counter
   # after_create :recent_comments
@@ -18,9 +21,8 @@ class User < ActiveRecord::Base
   # add sign up validation
   # , on: :update, unless: :admin? # , on: :create, unless: :admin?
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
-  # uniqueness: { case_sensitive: false },
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
-  validates :password, presence: true, length: { minimum: 8 }, on: :create, allow_blank: true
+  validates :password, presence: true, length: { minimum: 8 }, on: :create, allow_blank: false
   validates :password_confirmation, presence: true, allow_blank: true
   validates :phone_number, presence: true, uniqueness: true,
                            length: { minimum: 10, maximum: 13 }, on: :create, allow_blank: false
@@ -63,7 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    ['role']
+    %w[movie_comments movie_like role]
   end
 
   private

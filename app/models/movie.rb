@@ -5,8 +5,8 @@ class Movie < ApplicationRecord
 
   belongs_to :movie_genre
 
-  belongs_to :video_link, class_name: 'VideoLink', optional: true # , foreign_key: :video_link_id
-  belongs_to :trailer_link, class_name: 'TrailerLink', optional: true # , foreign_key: :trailer_link_id
+  belongs_to :video_link, class_name: 'Video', optional: true # , foreign_key: :video_link_id
+  belongs_to :trailer_link, class_name: 'Video', optional: true # , foreign_key: :trailer_link_id
 
   # has_one :trailer_link, foreign_key: :video_link_id
   # has_one :video_link, foreign_key: :trailer_link_id
@@ -29,17 +29,14 @@ class Movie < ApplicationRecord
   validates :status, presence: true, inclusion: { in: statuses.keys }
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[category comments_counter content_details created_at description id image_url likes_counter movie_genre_id
-       movie_outcast_id movie_writter_id name status trailer_link_id updated_at video_link_id views_counter]
+    %w[id name category content_details created_at description image_url status
+       comments_counter likes_counter views_counter trailer_link_id video_link_id updated_at
+       movie_genre_id movie_outcast_id movie_writter_id ]
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[movie_genre movie_outcasts movie_writter trailer_link video_link movie_comments movie_likes]
+    %w[movie_comments movie_genre movie_likes movie_writter trailer_link video_link]
   end
-
-  # def self.ransackable_attributes(_auth_object = nil)
-  #   %w[category created_at description id image_url likes_counter name status updated_at views_counter]
-  # end
 
   # def self.search_by_name(name)
   #   where('name ILIKE ?', "%#{name}%")
@@ -57,3 +54,6 @@ class Movie < ApplicationRecord
   #   where('name ILIKE ? OR category = ?', "%#{name}%", category)
   # end
 end
+
+# Unknown key: :optional.
+# Valid keys are: :class_name, :anonymous_class, :primary_key, :foreign_key, :dependent, :validate, :inverse_of, :strict_loading, :autosave, :required, :touch
