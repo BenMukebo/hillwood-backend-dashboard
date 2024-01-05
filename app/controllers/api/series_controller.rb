@@ -2,7 +2,22 @@ class Api::SeriesController < Api::ApiController
   before_action :set_series, only: %i[show update destroy]
 
   def index
-    @series = Serie.all
+    @series = if params[:search].present?
+                Serie.includes(:movie_genre).where('name LIKE :search', search: "%#{params[:search]}%")
+              else
+                Serie.includes(:movie_genre).all.to_a
+              end
+
+    # Check if series are present
+    if @series.any?
+      render_success_response('Series fetched successfully', @series, serializer: Series::SeriesSerializer)
+    elsif params[:search].present?
+      # Check if there is a search parameter
+      render_not_found_response("No series #{params[:search]} with the given search criteria.")
+    else
+      # Render an empty array when there is no search parameter
+      render_success_response('Series fetched successfully', [], serializer: Series::SeriesSerializer)
+    end
   end
 
   def options

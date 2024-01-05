@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_05_173032) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_05_192102) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -128,6 +128,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_05_173032) do
     t.index ["name"], name: "index_roles_on_name"
   end
 
+  create_table "seasons", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "image_url"
+    t.integer "status", null: false
+    t.bigint "video_link_id"
+    t.integer "episods_counter"
+    t.bigint "serie_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["serie_id"], name: "index_seasons_on_serie_id"
+    t.index ["title"], name: "index_seasons_on_title"
+    t.index ["video_link_id"], name: "index_seasons_on_video_link_id"
+  end
+
   create_table "series", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -212,6 +227,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_05_173032) do
   add_foreign_key "movies", "movie_writters"
   add_foreign_key "movies", "videos", column: "trailer_link_id"
   add_foreign_key "movies", "videos", column: "video_link_id"
+  add_foreign_key "seasons", "series", column: "serie_id"
+  add_foreign_key "seasons", "videos", column: "video_link_id"
   add_foreign_key "series", "movie_genres"
   add_foreign_key "series", "movie_outcasts"
   add_foreign_key "series", "movie_writters"

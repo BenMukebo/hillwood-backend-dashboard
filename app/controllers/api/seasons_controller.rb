@@ -10,7 +10,7 @@ class SeasonsController < ApplicationController
 
   def show
     render_show_response('Season fetched successfully', @season,
-                          serializer: Seasons::SeasonSerializer)
+                         serializer: Seasons::SeasonSerializer)
   end
 
   def create
@@ -18,8 +18,8 @@ class SeasonsController < ApplicationController
 
     if @season.save
       render_show_response('Season created successfully', @season,
-                            serializer: Seasons::SeasonSerializer,
-                            location: api_season_url(@season))
+                           serializer: Seasons::SeasonSerializer,
+                           location: api_season_url(@season))
     else
       render json: @season.errors, status: :unprocessable_entity
     end
@@ -28,8 +28,8 @@ class SeasonsController < ApplicationController
   def update
     if @season.update(season_params)
       render_show_response('Season updated successfully', @season,
-                            serializer: Seasons::SeasonSerializer,
-                            location: api_season_url(@season))
+                           serializer: Seasons::SeasonSerializer,
+                           location: api_season_url(@season))
     else
       render json: @season.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,7 @@ class SeasonsController < ApplicationController
   end
 
   def season_params
-    params.require(:season).permit(:title, :description, :image_url, :status, :video_link_id, :episods_counter, :serie_id)
+    params.require(:season).permit(:title, :description, :image_url, :status,
+                                   :video_link_id, :episods_counter, :serie_id)
   end
 end
