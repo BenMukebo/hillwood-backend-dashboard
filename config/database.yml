@@ -84,5 +84,4 @@ production:
   database: hillwood_backend_dashboard_production
   username: hillwood_backend_dashboard
   password: <%= ENV["HILLWOOD_BACKEND_DASHBOARD_DATABASE_PASSWORD"] %>
-  url: <%= ENV["DATABASE_URL"] %>
 
