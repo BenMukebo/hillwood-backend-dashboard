@@ -13,7 +13,13 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
   test 'should create movie' do
     assert_difference('Movie.count') do
       post movies_url,
-           params: { movie: { category: @movie.category, comments_counter: @movie.comments_counter, content_details: @movie.content_details, content_history: @movie.content_history, content_rating: @movie.content_rating, description: @movie.description, image_url: @movie.image_url, likes_counter: @movie.likes_counter, movie_genre_id: @movie.movie_genre_id, movie_outcast_id: @movie.movie_outcast_id, movie_writter_id: @movie.movie_writter_id, name: @movie.name, status: @movie.status, trailer_link_id: @movie.trailer_link_id, video_link_id: @movie.video_link_id, views_counter: @movie.views_counter } }, as: :json
+           params: { movie: { category: @movie.category, comments_counter: @movie.comments_counter,
+                              content_details: @movie.content_details, description: @movie.description,
+                              image_url: @movie.image_url, likes_counter: @movie.likes_counter,
+                              movie_genre_id: @movie.movie_genre_id, movie_outcast_id: @movie.movie_outcast_id,
+                              movie_writter_id: @movie.movie_writter_id, name: @movie.name, status: @movie.status,
+                              trailer_link_id: @movie.trailer_link_id, video_link_id: @movie.video_link_id,
+                              views_counter: @movie.views_counter } }, as: :json
     end
 
     assert_response :created
@@ -26,7 +32,13 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update movie' do
     patch movie_url(@movie),
-          params: { movie: { category: @movie.category, comments_counter: @movie.comments_counter, content_details: @movie.content_details, content_history: @movie.content_history, content_rating: @movie.content_rating, description: @movie.description, image_url: @movie.image_url, likes_counter: @movie.likes_counter, movie_genre_id: @movie.movie_genre_id, movie_outcast_id: @movie.movie_outcast_id, movie_writter_id: @movie.movie_writter_id, name: @movie.name, status: @movie.status, trailer_link_id: @movie.trailer_link_id, video_link_id: @movie.video_link_id, views_counter: @movie.views_counter } }, as: :json
+          params: { movie: { category: @movie.category, comments_counter: @movie.comments_counter,
+                             content_details: @movie.content_details, content_history: @movie.content_history,
+                             content_rating: @movie.content_rating, description: @movie.description, image_url: @movie.image_url,
+                             likes_counter: @movie.likes_counter, movie_genre_id: @movie.movie_genre_id,
+                             movie_outcast_id: @movie.movie_outcast_id, movie_writter_id: @movie.movie_writter_id,
+                             name: @movie.name, status: @movie.status, trailer_link_id: @movie.trailer_link_id,
+                             video_link_id: @movie.video_link_id, views_counter: @movie.views_counter } }, as: :json
     assert_response :success
   end
 

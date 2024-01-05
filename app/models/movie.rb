@@ -54,6 +54,3 @@ class Movie < ApplicationRecord
   #   where('name ILIKE ? OR category = ?', "%#{name}%", category)
   # end
 end
-
-# Unknown key: :optional.
-# Valid keys are: :class_name, :anonymous_class, :primary_key, :foreign_key, :dependent, :validate, :inverse_of, :strict_loading, :autosave, :required, :touch

@@ -86,7 +86,10 @@ ActiveAdmin.register Movie do
   # or
   #
   # permit_params do
-  #   permitted = [:name, :description, :category, :image_url, :content_details, :views_counter, :likes_counter, :comments_counter, :status, :movie_genre_id, :video_link_id, :trailer_link_id, :movie_writter_id, :movie_outcast_ids]
+  #   permitted = [:name, :description, :category, :image_url, :content_details,
+  #                :views_counter, :likes_counter, :comments_counter, :status,
+  #                :movie_genre_id, :video_link_id, :trailer_link_id,
+  #                :movie_writter_id, :movie_outcast_ids]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
