@@ -22,9 +22,9 @@ Rails.application.routes.draw do
     resources :movies, only: %i[index show create update destroy]
     resources :movie_likes, only: %i[index show create update destroy]
     resources :movie_comments, only: %i[index show create update destroy]
-    # resources :likes, only: %i[create update destroy]
-    # resources :comments, only: %i[create update destroy]
-    
+
+    resources :series, only: %i[index show create update destroy]
+
     scope '/options' do
       # resources :movie_genres, only: %i[index], path: 'movie-genres', as: 'movie_genres'
       # resources :movie_genres, path: 'movie-genres', only: %i[index]
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       get 'movie-writters', to: 'movie_writters#options'
       get 'movie-outcasts', to: 'movie_outcasts#options'
       get 'movies', to: 'movies#options'
+      get 'series', to: 'series#options'
 
     end
 
