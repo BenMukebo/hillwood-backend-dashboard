@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ace-rails-ap (4.5)
     actioncable (7.0.8)
       actionpack (= 7.0.8)
       activesupport (= 7.0.8)
@@ -60,6 +61,9 @@ GEM
       kaminari (>= 1.2.1)
       railties (>= 6.1)
       ransack (>= 4.0)
+    activeadmin_json_editor (0.0.10)
+      ace-rails-ap
+      railties (>= 3.0)
     activejob (7.0.8)
       activesupport (= 7.0.8)
       globalid (>= 0.3.6)
@@ -344,6 +348,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   activeadmin
+  activeadmin_json_editor (~> 0.0.7)
   bootsnap
   bullet
   capybara

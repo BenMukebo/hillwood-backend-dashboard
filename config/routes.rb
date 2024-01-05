@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     root 'users#index'
     mount_devise_token_auth_for 'User', at: 'auth', base_controller: 'Api::ApiController' # This didn't work
-    resources :roles, only: %i[index show new edit create update, destroy] # TODO: only index, show
-    resources :users, only: %i[index show update, destroy] do # TODO: remove index
+    resources :roles, only: %i[index show new edit create update destroy] # TODO: only index, show
+    resources :users, only: %i[index show update destroy] do
       collection do
         get 'search' #, to: 'users#search'
       end
@@ -17,10 +17,22 @@ Rails.application.routes.draw do
     get 'full-profile', to: 'users#profile'
     put '/edit-profile', to: 'users#edit'
     resources :videos, only: %i[index show create update, destroy]
+    resources :movie_writters, only: %i[index show create update destroy]
+    resources :movie_outcasts, only: %i[index show create update destroy]
+    resources :movies, only: %i[index show create update destroy]
+    resources :movie_likes, only: %i[index show create update destroy]
+    resources :movie_comments, only: %i[index show create update destroy]
+    # resources :likes, only: %i[create update destroy]
+    # resources :comments, only: %i[create update destroy]
     
     scope '/options' do
       # resources :movie_genres, only: %i[index], path: 'movie-genres', as: 'movie_genres'
-      resources :movie_genres, path: 'movie-genres', only: %i[index]
+      # resources :movie_genres, path: 'movie-genres', only: %i[index]
+      get 'movie-genres', to: 'movie_genres#options'
+      get 'movie-writters', to: 'movie_writters#options'
+      get 'movie-outcasts', to: 'movie_outcasts#options'
+      get 'movies', to: 'movies#options'
+
     end
 
     # get '/docs' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')

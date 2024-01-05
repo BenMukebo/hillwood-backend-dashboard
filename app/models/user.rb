@@ -11,18 +11,21 @@ class User < ActiveRecord::Base
   # self.skip_session_storage = [:http_auth, :params_auth]
 
   belongs_to :role
+  has_many :movie_comments
+  has_one :movie_like
+
   after_initialize :set_default_role, if: :new_record?
   # after_save :update_posts_counter
   # after_create :recent_comments
 
   # add sign up validation
   # , on: :update, unless: :admin? # , on: :create, unless: :admin?
-  validates :email, uniqueness: { case_sensitive: false },
-                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 24 }
-  validates :password, presence: true, length: { minimum: 8 }, on: :create
+  validates :password, presence: true, length: { minimum: 8 }, on: :create, allow_blank: false
   validates :password_confirmation, presence: true, allow_blank: true
-  validates :phone_number, presence: true, uniqueness: true, length: { minimum: 10, maximum: 15 }
+  validates :phone_number, presence: true, uniqueness: true,
+                           length: { minimum: 10, maximum: 13 }, on: :create, allow_blank: false
   validates_presence_of :age_group, on: :create
   validates :terms_of_service, acceptance: { accept: true }
   validates_inclusion_of :remember_me, in: [true, false], allow_blank: true
@@ -36,7 +39,7 @@ class User < ActiveRecord::Base
   enum verification_status: VERIFY_STATUS, _default: 'unverified', _prefix: true
 
   validates :age_group, inclusion: { in: age_groups.keys }
-  validates :verification_status, inclusion: { in: verification_statuses.keys }
+  validates :verification_status, presence: true, inclusion: { in: verification_statuses.keys }
 
   def admin?
     role.name == 'admin'
@@ -62,7 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    ['role']
+    %w[movie_comments movie_like role]
   end
 
   private

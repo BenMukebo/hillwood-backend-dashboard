@@ -26,13 +26,14 @@ class Api::UsersController < Api::ApiController
   end
 
   def profile
-    render_show_response('Profile fetched successfully', @current_user, serializer: Users::UserProfileSerializer)
+    render_show_response('Profile fetched successfully', @current_user,
+                         serializer: Users::UserProfileSerializer)
   end
 
   def update
     if @user.update!(user_params)
-      render json: { message: "Hi, You've updated successfully user #{@user.id} data", user: @user }, status: :ok
-
+      render_show_response('User updated successfully', @user,
+                           serializer: Users::UserSerializer)
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -40,7 +41,9 @@ class Api::UsersController < Api::ApiController
 
   def edit
     if @current_user.update(user_params)
-      render_success_response('Profile updated successfully', @current_user)
+      render_show_response('Profile updated successfully', @current_user,
+                           serializer: Users::UserProfileSerializer)
+      # location: api_movie_writter_url(@movie_writter)) TODO: Config the location from the router
       # ProfileMailer.with(user: current_user).update_email.deliver_later
     else
       render_unprocessable_entity_response(@current_user.errors)
@@ -76,9 +79,9 @@ class Api::UsersController < Api::ApiController
   def user_params
     params.require(:user).permit(
       :username, :password, :phone_number, :age_group, :verification_status,
-      { profile: %i[avatar_url bio first_name last_name sex phone_verified date_of_birth interests languages privacy_policy] },
+      { profile: %i[avatar_url bio date_of_birth first_name last_name interests languages phone_verified sex] },
       { location: %i[country state city zip_code address] },
-      { social_links: %i[facebook twitter instagram linkedin youtube] }
+      { social_links: %i[facebook instagram linkedin twitter youtube] }
     )
   end
 end

@@ -1,0 +1,37 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  category: 1
+  image_url: MyString
+  content_details: 
+  content_rating: 
+  content_history: 
+  views_counter: MyString
+  likes_counter: MyString
+  comments_counter: MyString
+  status: 1
+  movie_genre: one
+  video_link: one
+  trailer_link: one
+  movie_writter: one
+  movie_outcast: one
+
+two:
+  name: MyString
+  description: MyString
+  category: 1
+  image_url: MyString
+  content_details: 
+  content_rating: 
+  content_history: 
+  views_counter: MyString
+  likes_counter: MyString
+  comments_counter: MyString
+  status: 1
+  movie_genre: two
+  video_link: two
+  trailer_link: two
+  movie_writter: two
+  movie_outcast: two

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_26_115646) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_29_142511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,11 +45,79 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_115646) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "movie_comments", force: :cascade do |t|
+    t.text "text"
+    t.integer "likes_counter"
+    t.bigint "movie_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_comments_on_movie_id"
+    t.index ["user_id"], name: "index_movie_comments_on_user_id"
+  end
+
   create_table "movie_genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_movie_genres_on_name", unique: true
+  end
+
+  create_table "movie_likes", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_likes_on_movie_id"
+    t.index ["user_id"], name: "index_movie_likes_on_user_id"
+  end
+
+  create_table "movie_outcasts", force: :cascade do |t|
+    t.string "avatar_url"
+    t.string "first_name"
+    t.string "last_name"
+    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil, "last_name"=>nil, "first_name"=>nil, "date_of_birth"=>nil}, null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["personal_details"], name: "index_movie_outcasts_on_personal_details", using: :gin
+  end
+
+  create_table "movie_writters", force: :cascade do |t|
+    t.string "avatar_url"
+    t.string "first_name"
+    t.string "last_name"
+    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil, "last_name"=>nil, "first_name"=>nil, "date_of_birth"=>nil}, null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["personal_details"], name: "index_movie_writters_on_personal_details", using: :gin
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "category"
+    t.string "image_url"
+    t.jsonb "content_details", default: {"country"=>nil, "duration"=>nil, "original_language"=>nil}, null: false
+    t.integer "views_counter", default: 0, null: false
+    t.integer "likes_counter", default: 0, null: false
+    t.integer "comments_counter", default: 0, null: false
+    t.integer "status", null: false
+    t.bigint "movie_genre_id", null: false
+    t.bigint "video_link_id"
+    t.bigint "trailer_link_id"
+    t.bigint "movie_writter_id"
+    t.bigint "movie_outcast_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_details"], name: "index_movies_on_content_details", using: :gin
+    t.index ["movie_genre_id"], name: "index_movies_on_movie_genre_id"
+    t.index ["movie_outcast_id"], name: "index_movies_on_movie_outcast_id"
+    t.index ["movie_writter_id"], name: "index_movies_on_movie_writter_id"
+    t.index ["name"], name: "index_movies_on_name", unique: true
+    t.index ["trailer_link_id"], name: "index_movies_on_trailer_link_id"
+    t.index ["video_link_id"], name: "index_movies_on_video_link_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -87,9 +155,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_115646) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "role_id", null: false
-    t.jsonb "profile", default: "{}", null: false
-    t.jsonb "location", default: "{}", null: false
-    t.jsonb "social_links", default: "{}", null: false
+    t.jsonb "profile", default: {"bio"=>nil, "sex"=>nil, "interests"=>"[]", "languages"=>"[]", "last_name"=>nil, "avatar_url"=>nil, "first_name"=>nil, "date_of_birth"=>nil, "phone_verified"=>false}, null: false
+    t.jsonb "location", default: {"city"=>nil, "state"=>nil, "address"=>"", "country"=>nil, "zip_code"=>nil}, null: false
+    t.jsonb "social_links", default: {"twitter"=>nil, "youtube"=>nil, "facebook"=>nil, "linkedin"=>nil, "instagram"=>nil}, null: false
     t.integer "verification_status"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -104,12 +172,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_115646) do
   end
 
   create_table "videos", force: :cascade do |t|
-    t.string "url"
-    t.string "mime_type"
-    t.integer "status", null: false
+    t.string "url", null: false
+    t.string "title"
+    t.integer "status"
+    t.jsonb "details", default: {"caption"=>nil, "duration"=>nil, "dimention"=>nil, "mime_type"=>nil, "definition"=>nil}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["details"], name: "index_videos_on_details", using: :gin
   end
 
+  add_foreign_key "movie_comments", "movies"
+  add_foreign_key "movie_comments", "users"
+  add_foreign_key "movie_likes", "movies"
+  add_foreign_key "movie_likes", "users"
+  add_foreign_key "movies", "movie_genres"
+  add_foreign_key "movies", "movie_outcasts"
+  add_foreign_key "movies", "movie_writters"
+  add_foreign_key "movies", "videos", column: "trailer_link_id"
+  add_foreign_key "movies", "videos", column: "video_link_id"
   add_foreign_key "users", "roles"
 end

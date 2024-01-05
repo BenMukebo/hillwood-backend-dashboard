@@ -1,20 +1,30 @@
 ActiveAdmin.register Video do
+  permit_params :url, :title, :status, details: %i[duration definition dimention size caption language mime_type], movie_ids: []
+
+  json_editor
+
   index do
     selectable_column
     id_column
+    column :title
     column :url
-    column :mime_type
     column :status
-    # actions
+    actions
   end
 
   show do
     attributes_table do
+      row :title
       row :url
-      row :mime_type
       row :status
+      row :details, as: :json
       row :created_at
       row :updated_at
+      # table_for video.movies.order('name ASC') do
+      #   column "Movies" do |movie|
+      #     link_to movie.name, admin_movie_path(movie)
+      #   end
+      # end
     end
     active_admin_comments
   end
@@ -22,14 +32,13 @@ ActiveAdmin.register Video do
   form do |f|
     f.inputs 'Video Details' do
       f.input :url
-      f.input :mime_type
       f.input :status
+      f.input :details, as: :json
+      # f.input :movies, :as => :check_boxes
     end
     f.actions
   end
 
-  permit_params :url, :mime_type, :status
-  #
   # or
   #
   # permit_params do
