@@ -1,12 +1,12 @@
 databases:
-  - name: hillwood_backend_dashboard_development
+  - name: hillwood_backend_dashboard_db
     databaseName: hillwood_backend_dashboard
     user: hillwood_backend_dashboard
     plan: free
 
 services:
   - type: web
-    name: hillwood_backend_dashboard_development
+    name: hillwood_backend_dashboard_db
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
