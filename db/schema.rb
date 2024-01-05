@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_29_142511) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_05_173032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -127,6 +127,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_142511) do
     t.index ["name"], name: "index_roles_on_name"
   end
 
+  create_table "series", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "category"
+    t.string "image_url"
+    t.jsonb "content_details", default: {"country"=>nil, "duration"=>nil, "original_language"=>nil}, null: false
+    t.integer "status", null: false
+    t.bigint "movie_genre_id", null: false
+    t.bigint "video_link_id"
+    t.bigint "movie_writter_id"
+    t.bigint "movie_outcast_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_details"], name: "index_series_on_content_details", using: :gin
+    t.index ["movie_genre_id"], name: "index_series_on_movie_genre_id"
+    t.index ["movie_outcast_id"], name: "index_series_on_movie_outcast_id"
+    t.index ["movie_writter_id"], name: "index_series_on_movie_writter_id"
+    t.index ["name"], name: "index_series_on_name", unique: true
+    t.index ["video_link_id"], name: "index_series_on_video_link_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -190,5 +211,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_142511) do
   add_foreign_key "movies", "movie_writters"
   add_foreign_key "movies", "videos", column: "trailer_link_id"
   add_foreign_key "movies", "videos", column: "video_link_id"
+  add_foreign_key "series", "movie_genres"
+  add_foreign_key "series", "movie_outcasts"
+  add_foreign_key "series", "movie_writters"
+  add_foreign_key "series", "videos", column: "video_link_id"
   add_foreign_key "users", "roles"
 end
