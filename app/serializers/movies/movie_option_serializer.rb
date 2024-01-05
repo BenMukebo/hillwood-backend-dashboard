@@ -1,5 +1,5 @@
 module Movies
-  class Movies::MovieOptionSerializer < ApplicationSerializer
+  class MovieOptionSerializer < ApplicationSerializer
     attributes :value, :name, :image_url
 
     def value

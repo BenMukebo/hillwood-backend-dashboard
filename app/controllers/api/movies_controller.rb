@@ -62,7 +62,7 @@ class Api::MoviesController < Api::ApiController
 
   def movie_params
     params.require(:movie).permit(
-      :name, :description, :category, :image_url, :status,
+      :name, :description, :category, :released_at, :image_url, :status,
       { content_details: %i[duration country original_language languages licence] },
       :movie_genre_id, :video_link_id, :trailer_link_id, :movie_writter_id, movie_outcast_ids: []
     ) # { movie_outcast_ids: [] }
