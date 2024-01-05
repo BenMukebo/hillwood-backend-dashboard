@@ -4,12 +4,18 @@ ActiveAdmin.register User do
   index do
     selectable_column
     id_column
+    column 'Profile Picture', :profile do |user|
+      image_url = user.profile['avatar_url'].nil? ? 'https://via.placeholder.com/150' : user.profile['avatar_url']
+      image_tag image_url, width: 40, height: 40, alt: user.username, class: 'user_avatar'
+    end
     column 'Email Address', :email
     column :username
     column :phone_number
     column :age_group
+    column 'Country', :location do |user|
+      user.location['country'].nil? ? 'N/A' : user.location['country']
+    end
     column :role
-    # column :location
     column 'Verification', :verification_status
     actions
   end
@@ -20,6 +26,10 @@ ActiveAdmin.register User do
       row :email
       row :phone_number
       row :age_group
+      row 'Profile Picture', :profile do |user|
+        image_url = user.profile['avatar_url'].nil? ? 'https://via.placeholder.com/150' : user.profile['avatar_url']
+        image_tag image_url, width: 100, height: 70, alt: user.username, class: 'user_avatar'
+      end
       row :terms_of_service
       row :welcome_email_send
       row :role
@@ -38,8 +48,10 @@ ActiveAdmin.register User do
     f.inputs 'User Details' do
       f.input :email
       f.input :username
-      # f.input :password
-      # f.input :password_confirmation
+      if params[:action] == 'new' # Display password fields only on the create action
+        f.input :password
+        f.input :password_confirmation
+      end
       f.input :phone_number
       f.input :age_group
       f.input :verification_status
@@ -58,7 +70,8 @@ ActiveAdmin.register User do
   permit_params :email, :username, :password, :password_confirmation, :phone_number, :age_group, :terms_of_service,
                 :welcome_email_send, :role_id, :verification_status,
                 profile: %i[avatar_url first_name last_name sex phone_verified date_of_birth],
-                location: %i[country state city zip_code address]
+                location: %i[country state city zip_code address],
+                social_links: %i[facebook twitter instagram youtube linkedin]
 
   # OR
   # permit_params do

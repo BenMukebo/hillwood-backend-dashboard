@@ -8,7 +8,10 @@ ActiveAdmin.register MovieWritter do
     selectable_column
     id_column
     column :avatar_url do |movie_writter|
-      image_tag movie_writter.avatar_url, width: 40, height: 40, class: 'movie_writter_avatar'
+      # image_tag movie_writter.avatar_url, width: 40, height: 40, class: 'movie_writter_avatar'
+      image_url = movie_writter.avatar_url.nil? ? 'https://via.placeholder.com/150' : movie_writter.avatar_url
+      image_tag image_url, width: 40, height: 40, class: 'movie_writter_avatar',
+                           alt: "#{movie_writter.first_name} #{movie_writter.last_name}"
     end
     column :first_name
     column :last_name
@@ -21,7 +24,9 @@ ActiveAdmin.register MovieWritter do
       row :first_name
       row :last_name
       row :avatar_url do |movie_writter|
-        image_tag movie_writter.avatar_url, width: 70, height: 70, class: 'movie_writter_avatar'
+        image_url = movie_writter.avatar_url.nil? ? 'https://via.placeholder.com/150' : movie_writter.avatar_url
+        image_tag image_url, width: 100, height: 70, class: 'movie_writter_avatar',
+                             alt: "#{movie_writter.first_name} #{movie_writter.last_name}"
       end
       row :personal_details
       row :status
