@@ -5,6 +5,7 @@ class CreateMovies < ActiveRecord::Migration[7.0]
       t.text :description
       t.integer :category
       t.string :image_url
+      t.date :released_at
       t.jsonb :content_details, null: false, default: {
         country: nil, duration: nil, original_language: nil
       }

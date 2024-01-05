@@ -1,5 +1,5 @@
 ActiveAdmin.register Movie do
-  permit_params :name, :description, :category, :image_url,
+  permit_params :name, :description, :category, :image_url, :released_at,
                 :views_counter, :likes_counter, :comments_counter, :status,
                 :movie_genre_id, :video_link_id, :trailer_link_id, :movie_writter_id,
                 :movie_outcast_id, movie_outcast_ids: [], movie_comment_ids: [],
@@ -45,6 +45,7 @@ ActiveAdmin.register Movie do
       row :image_url do |movie|
         image_tag movie.image_url, width: 100, height: 70
       end
+      row :released_at
       row :content_details, as: :json
       row :views_counter
       row :likes_counter
@@ -72,6 +73,7 @@ ActiveAdmin.register Movie do
       f.input :description
       f.input :category
       f.input :image_url
+      f.input :released_at
       f.input :content_details, as: :json
       f.input :status
       f.input :movie_genre

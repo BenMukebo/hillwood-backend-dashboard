@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_05_173032) do
     t.text "description"
     t.integer "category"
     t.string "image_url"
+    t.date "released_at"
     t.jsonb "content_details", default: {"country"=>nil, "duration"=>nil, "original_language"=>nil}, null: false
     t.integer "views_counter", default: 0, null: false
     t.integer "likes_counter", default: 0, null: false

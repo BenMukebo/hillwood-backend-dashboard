@@ -18,7 +18,8 @@ class Serie < ApplicationRecord
   validates :status, presence: true, inclusion: { in: statuses.keys }
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[category content_details created_at description id image_url movie_genre_id movie_outcast_id
+    %w[category created_at description id image_url
+       movie_genre_id movie_outcast_id content_details
        movie_writter_id name status updated_at video_link_id]
   end
 
