@@ -32,7 +32,7 @@ ActiveAdmin.register Movie do
     column :status
     column 'Genre', :movie_genre
     column 'Author', :movie_writter
-    column 'Outcasts', :movie_outcasts
+    # column 'Outcasts', :movie_outcasts
 
     actions
   end
