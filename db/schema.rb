@@ -96,14 +96,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_142511) do
 
   create_table "movies", force: :cascade do |t|
     t.string "name"
-    t.string "description"
+    t.text "description"
     t.integer "category"
     t.string "image_url"
-    t.jsonb "content_details", default: {"country"=>nil, "languages"=>"[]"}, null: false
+    t.jsonb "content_details", default: {"country"=>nil, "duration"=>nil, "original_language"=>nil}, null: false
     t.integer "views_counter", default: 0, null: false
     t.integer "likes_counter", default: 0, null: false
     t.integer "comments_counter", default: 0, null: false
-    t.integer "status"
+    t.integer "status", null: false
     t.bigint "movie_genre_id", null: false
     t.bigint "video_link_id"
     t.bigint "trailer_link_id"
@@ -173,6 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_142511) do
 
   create_table "videos", force: :cascade do |t|
     t.string "url", null: false
+    t.string "title"
     t.integer "status"
     t.jsonb "details", default: {"caption"=>nil, "duration"=>nil, "dimention"=>nil, "mime_type"=>nil, "definition"=>nil}, null: false
     t.datetime "created_at", null: false

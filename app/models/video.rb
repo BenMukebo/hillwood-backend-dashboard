@@ -1,6 +1,8 @@
 class Video < ApplicationRecord
   has_one :movie, foreign_key: 'video_link_id'
   has_one :movie, foreign_key: 'trailer_link_id'
+  # has_and_belongs_to_many :movies
+
   # has_one :trailer, class_name: 'Movie', foreign_key: 'trailer_link_id'
   # has_one :music
 
@@ -8,12 +10,13 @@ class Video < ApplicationRecord
   STATUS = { pending: 0, uploading: 1, failed: 2, completed: 3 }.freeze
   enum status: STATUS, _default: 'pending', _prefix: true
 
+  validates :title, presence: true, length: { maximum: 32 }
   validates :url, presence: true, uniqueness: { case_sensitive: false },
                   format: { with: URI::DEFAULT_PARSER.make_regexp }
   validates :status, presence: true, inclusion: { in: statuses.keys }
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[created_at id status updated_at url]
+    %w[created_at id title status updated_at url]
   end
 
   def self.ransackable_associations(_auth_object = nil)

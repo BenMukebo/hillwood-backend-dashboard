@@ -1,11 +1,12 @@
 ActiveAdmin.register Video do
-  permit_params :url, :status, details: %i[duration definition dimention size caption language mime_type], movie_ids: []
+  permit_params :url, :title, :status, details: %i[duration definition dimention size caption language mime_type], movie_ids: []
 
   json_editor
 
   index do
     selectable_column
     id_column
+    column :title
     column :url
     column :status
     actions
@@ -13,6 +14,7 @@ ActiveAdmin.register Video do
 
   show do
     attributes_table do
+      row :title
       row :url
       row :status
       row :details, as: :json
