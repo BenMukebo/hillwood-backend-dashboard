@@ -1,6 +1,6 @@
 ActiveAdmin.register Serie do
-  permit_params :name, :description, :category, :image_url,
-                :status, :movie_genre_id, :video_link_id, :movie_writter_id, :movie_outcast_id,
+  permit_params :name, :description, :category, :image_url, :status,
+                :movie_genre_id, :video_link_id, :movie_writter_id, :movie_outcast_id,
                 content_details: %i[duration country licence original_language]
 
   index do
@@ -65,7 +65,9 @@ ActiveAdmin.register Serie do
   # or
   #
   # permit_params do
-  #   permitted = [:name, :description, :category, :image_url, :content_details, :status, :movie_genre_id, :video_id, :movie_writter_id, :movie_outcast_id]
+  #   permitted = [:name, :description, :category, :image_url,
+  # :content_details, :status, :movie_genre_id, :video_id,
+  # :movie_writter_id, :movie_outcast_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
