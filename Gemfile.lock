@@ -365,6 +365,7 @@ DEPENDENCIES
   debug
   devise
   devise_token_auth
+  ffi (~> 1.9, >= 1.9.10)
   figaro
   importmap-rails
   jbuilder

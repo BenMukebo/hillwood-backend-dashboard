@@ -47,6 +47,8 @@ gem 'turbo-rails'
 gem 'sassc-rails'
 gem 'sassc', '~> 1.1'
 
+gem 'ffi', '~> 1.9', '>= 1.9.10'
+
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
 
