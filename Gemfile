@@ -45,6 +45,7 @@ gem 'turbo-rails'
 
 # Use Sass to process CSS
 gem 'sassc-rails'
+gem 'sassc', '~> 1.1'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
