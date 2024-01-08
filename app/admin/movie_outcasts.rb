@@ -36,9 +36,9 @@ ActiveAdmin.register MovieOutcast do
 
   form do |f|
     f.inputs 'MovieOutcast Input' do
-      f.input :avatar_url
       f.input :first_name
       f.input :last_name
+      f.input :avatar_url
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
     end
@@ -46,7 +46,6 @@ ActiveAdmin.register MovieOutcast do
   end
 
   # or
-  #
   # permit_params do
   #   permitted = [:avatar_url, :first_name, :last_name, :personal_details, :status]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?

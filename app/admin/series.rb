@@ -35,6 +35,11 @@ ActiveAdmin.register Serie do
       row :movie_outcast_ids
       row :created_at
       row :updated_at
+      table_for serie.seasons.order('title ASC') do
+        column 'seasons' do |season|
+          link_to season.title, [:admin, season] # TODO: Understand the :admin
+        end
+      end
     end
     active_admin_comments
   end

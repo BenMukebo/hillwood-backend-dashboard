@@ -80,13 +80,12 @@ ActiveAdmin.register Movie do
       f.input :video_link_id, as: :select, collection: Video.all.map { |video_link| [video_link.url, video_link.id] }
       f.input :trailer_link
       f.input :movie_writter
-      f.input :movie_outcast_ids, as: :check_boxes
+      # f.input :movie_outcast_ids, as: :check_boxes
     end
     f.actions
   end
 
   # or
-  #
   # permit_params do
   #   permitted = [:name, :description, :category, :image_url, :content_details,
   #                :views_counter, :likes_counter, :comments_counter, :status,

@@ -10,7 +10,7 @@ class Serie < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 60 }
   validates :description, presence: true, length: { minimum: 12, maximum: 1200 }
-  validates :image_url, format: { with: URI::DEFAULT_PARSER.make_regexp }
+  validates :image_url, format: { with: URI::DEFAULT_PARSER.make_regexp }, allow_blank: true
   validates :content_details, presence: true
 
   enum status: { unreleased: 0, released: 1, banned: 2 }, _default: 'unreleased', _prefix: true

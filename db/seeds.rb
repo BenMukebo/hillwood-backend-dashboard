@@ -9,7 +9,7 @@
 #   end
 
 if Rails.env.development?
-  NAME = %i[user super_admin subscriber].freeze
+  NAME = %i[user subscriber admin].freeze
 
   NAME.each do |name|
     Role.find_or_create_by!(name: name)
