@@ -1,4 +1,4 @@
-class Movies::MovieOptionSerializer < ApplicationSerializer
+class Episodes::EpisodeOptionSerializer < ApplicationSerializer
   attributes :value, :name, :image_url
 
   def value
