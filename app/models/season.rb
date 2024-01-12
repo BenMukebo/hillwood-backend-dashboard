@@ -1,6 +1,7 @@
 class Season < ApplicationRecord
   belongs_to :serie
   belongs_to :video_link, class_name: 'Video', optional: true # , foreign_key: :video_link_id
+  has_many :episodes, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 3, maximum: 60 }
   validates :description, length: { maximum: 1200 }

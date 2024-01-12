@@ -5,6 +5,7 @@ class Serie < ApplicationRecord
   belongs_to :video_link, class_name: 'Video', optional: true # , foreign_key: :video_link_id
 
   has_many :seasons, dependent: :destroy
+  has_many :episodes, through: :seasons, dependent: :destroy
   # has_many :serie_comments, dependent: :destroy
   # has_many :serie_likes, dependent: :destroy
 

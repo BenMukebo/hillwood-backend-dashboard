@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_05_192102) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_08_161955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_05_192102) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "episodes", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "image_url"
+    t.date "released_at"
+    t.time "duration"
+    t.integer "status"
+    t.bigint "video_link_id"
+    t.bigint "trailer_link_id"
+    t.bigint "season_id", null: false
+    t.bigint "serie_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["season_id"], name: "index_episodes_on_season_id"
+    t.index ["serie_id"], name: "index_episodes_on_serie_id"
+    t.index ["trailer_link_id"], name: "index_episodes_on_trailer_link_id"
+    t.index ["video_link_id"], name: "index_episodes_on_video_link_id"
   end
 
   create_table "movie_comments", force: :cascade do |t|
@@ -218,6 +237,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_05_192102) do
     t.index ["details"], name: "index_videos_on_details", using: :gin
   end
 
+  add_foreign_key "episodes", "seasons"
+  add_foreign_key "episodes", "series", column: "serie_id"
+  add_foreign_key "episodes", "videos", column: "trailer_link_id"
+  add_foreign_key "episodes", "videos", column: "video_link_id"
   add_foreign_key "movie_comments", "movies"
   add_foreign_key "movie_comments", "users"
   add_foreign_key "movie_likes", "movies"
