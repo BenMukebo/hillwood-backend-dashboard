@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     
     resources :series, only: %i[index show create update destroy]
     resources :seasons, only: %i[index show create update destroy]
+    resources :episodes, only: %i[index show create update destroy]
 
     scope '/options' do
       # resources :movie_genres, only: %i[index], path: 'movie-genres', as: 'movie_genres'
@@ -34,7 +35,8 @@ Rails.application.routes.draw do
       get 'movie-outcasts', to: 'movie_outcasts#options'
       get 'movies', to: 'movies#options'
       get 'series', to: 'series#options'
-
+      get 'seasons', to: 'seasons#options'
+      get 'episodes', to: 'episodes#options'
     end
 
     # get '/docs' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')

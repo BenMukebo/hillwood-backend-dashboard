@@ -1,4 +1,4 @@
-class SeasonsController < ApplicationController
+class Api::SeasonsController < Api::ApiController
   before_action :set_season, only: %i[show update destroy]
 
   def index
