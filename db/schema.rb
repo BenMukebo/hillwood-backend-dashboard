@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_08_161955) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_18_004703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -165,6 +165,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_161955) do
     t.index ["video_link_id"], name: "index_seasons_on_video_link_id"
   end
 
+  create_table "serie_comments", force: :cascade do |t|
+    t.text "text"
+    t.integer "likes_counter"
+    t.bigint "serie_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["serie_id"], name: "index_serie_comments_on_serie_id"
+    t.index ["user_id"], name: "index_serie_comments_on_user_id"
+  end
+
+  create_table "serie_likes", force: :cascade do |t|
+    t.bigint "serie_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["serie_id"], name: "index_serie_likes_on_serie_id"
+    t.index ["user_id"], name: "index_serie_likes_on_user_id"
+  end
+
   create_table "series", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -255,6 +275,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_161955) do
   add_foreign_key "movies", "videos", column: "video_link_id"
   add_foreign_key "seasons", "series", column: "serie_id"
   add_foreign_key "seasons", "videos", column: "video_link_id"
+  add_foreign_key "serie_comments", "series", column: "serie_id"
+  add_foreign_key "serie_comments", "users"
+  add_foreign_key "serie_likes", "series", column: "serie_id"
+  add_foreign_key "serie_likes", "users"
   add_foreign_key "series", "movie_genres"
   add_foreign_key "series", "movie_outcasts"
   add_foreign_key "series", "movie_writters"
