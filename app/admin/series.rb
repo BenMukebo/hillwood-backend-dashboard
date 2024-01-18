@@ -1,4 +1,5 @@
 ActiveAdmin.register Serie do
+  config.per_page = [10, 15, 20]
   permit_params :name, :description, :category, :image_url, :views, :status,
                 :movie_genre_id, :video_link_id, :movie_writter_id, :movie_outcast_id,
                 content_details: %i[duration country licence original_language]

@@ -1,4 +1,6 @@
 ActiveAdmin.register Movie do
+  config.per_page = [10, 15, 20]
+  json_editor
   permit_params :name, :description, :category, :image_url, :released_at,
                 :views_counter, :likes_counter, :comments_counter, :status,
                 :movie_genre_id, :video_link_id, :trailer_link_id, :movie_writter_id,
