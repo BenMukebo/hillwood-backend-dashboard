@@ -28,4 +28,17 @@ class Serie < ApplicationRecord
   def self.ransackable_associations(_auth_object = nil)
     %w[serie_comments movie_genre movie_writter seasons episodes video_link]
   end
+
+  def self.released
+    where(status: [1, 2])
+  end
+
+  def increment_view
+    self.views += 1
+    save
+  end
+
+  def self.search_by_name(name)
+    where('name ILIKE ?', "%#{name}%")
+  end
 end
