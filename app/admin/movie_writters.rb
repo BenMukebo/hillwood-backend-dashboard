@@ -1,5 +1,6 @@
 ActiveAdmin.register MovieWritter do
-  permit_params :avatar_url, :first_name, :last_name, :personal_details, :status, movie_ids: []
+  permit_params :avatar_url, :first_name, :last_name, :date_of_birth,
+                :personal_details, :status, movie_ids: []
   # has_many :movies
 
   json_editor
@@ -10,8 +11,8 @@ ActiveAdmin.register MovieWritter do
     column :avatar_url do |movie_writter|
       # image_tag movie_writter.avatar_url, width: 40, height: 40, class: 'movie_writter_avatar'
       image_url = movie_writter.avatar_url.nil? ? 'https://via.placeholder.com/150' : movie_writter.avatar_url
-      image_tag image_url, width: 40, height: 40, class: 'movie_writter_avatar',
-                           alt: "#{movie_writter.first_name} #{movie_writter.last_name}"
+      image_tag image_url, alt: "#{movie_writter.first_name} #{movie_writter.last_name}",
+                           width: 50, height: 30, class: 'movie_writter_avatar', style: 'border-radius: 2px'
     end
     column :first_name
     column :last_name
@@ -23,6 +24,7 @@ ActiveAdmin.register MovieWritter do
     attributes_table do
       row :first_name
       row :last_name
+      row :date_of_birth
       row :avatar_url do |movie_writter|
         image_url = movie_writter.avatar_url.nil? ? 'https://via.placeholder.com/150' : movie_writter.avatar_url
         image_tag image_url, width: 100, height: 70, class: 'movie_writter_avatar',
@@ -47,6 +49,7 @@ ActiveAdmin.register MovieWritter do
       f.input :first_name
       f.input :last_name
       f.input :avatar_url
+      f.input :date_of_birth
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
       f.input :movies, as: :check_boxes
