@@ -18,13 +18,14 @@ ActiveAdmin.register Movie do
   index do
     selectable_column
     id_column
+    column :image_url do |movie|
+      image_tag movie.image_url, width: 40, height: 30
+    end
     column :name
     # column :category
-    column :image_url do |movie|
-      image_tag movie.image_url, width: 40, height: 40
-    end
-    column :video_link_id
-    column :trailer_link_id
+    column :released_at
+    column :video_link
+    column :trailer_link
     column :views_counter
     column :likes_counter
     column :comments_counter
@@ -84,6 +85,16 @@ ActiveAdmin.register Movie do
     end
     f.actions
   end
+
+  filter :name
+  filter :category
+  filter :status
+  filter :released_at
+  filter :views_counter
+  filter :movie_genre
+  filter :movie_writter
+  filter :movie_outcast_id
+  filter :created_at
 
   # or
   # permit_params do

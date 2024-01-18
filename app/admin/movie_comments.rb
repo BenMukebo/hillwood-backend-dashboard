@@ -1,4 +1,5 @@
 ActiveAdmin.register MovieComment do
+  menu parent: 'Movies', priority: 2, label: 'Movie Comments', url: '/admin/movie_comments'
   permit_params :text, :likes_counter, :movie_id, :user_id
 
   index do

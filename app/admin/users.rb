@@ -65,6 +65,14 @@ ActiveAdmin.register User do
     f.actions
   end
 
+  filter :username
+  filter :email
+  filter :phone_number
+  filter :age_group
+  filter :verification_status
+  filter :role
+  filter :created_at
+
   # belongs_to :role, optional: true
 
   permit_params :email, :username, :password, :password_confirmation, :phone_number, :age_group, :terms_of_service,

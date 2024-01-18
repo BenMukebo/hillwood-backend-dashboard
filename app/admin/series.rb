@@ -6,10 +6,10 @@ ActiveAdmin.register Serie do
   index do
     selectable_column
     id_column
-    column :name
     column :image_url do |serie|
-      image_tag serie.image_url, width: 40, height: 40
+      image_tag serie.image_url, width: 40, height: 30
     end
+    column :name
     column :content_details
     column :status
     column 'Genre', :movie_genre
@@ -45,11 +45,12 @@ ActiveAdmin.register Serie do
   end
 
   filter :name
-  filter :description
   filter :category
-  filter :image_url
-  filter :content_details
   filter :status
+  filter :movie_genre
+  filter :movie_writter
+  filter :movie_outcast
+  filter :created_at
 
   form do |f|
     f.inputs do
