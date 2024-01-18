@@ -15,6 +15,6 @@ class Season < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[serie video_link]
+    %w[serie episodes video_link]
   end
 end

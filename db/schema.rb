@@ -95,7 +95,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_161955) do
     t.string "avatar_url"
     t.string "first_name"
     t.string "last_name"
-    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil, "last_name"=>nil, "first_name"=>nil, "date_of_birth"=>nil}, null: false
+    t.date "date_of_birth"
+    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "email"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil}, null: false
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -106,7 +107,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_161955) do
     t.string "avatar_url"
     t.string "first_name"
     t.string "last_name"
-    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil, "last_name"=>nil, "first_name"=>nil, "date_of_birth"=>nil}, null: false
+    t.date "date_of_birth"
+    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "email"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil}, null: false
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -151,6 +153,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_161955) do
     t.string "title", null: false
     t.text "description"
     t.string "image_url"
+    t.date "released_at"
     t.integer "status", null: false
     t.bigint "video_link_id"
     t.integer "episods_counter"
@@ -167,7 +170,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_161955) do
     t.text "description"
     t.integer "category"
     t.string "image_url"
-    t.jsonb "content_details", default: {"country"=>nil, "duration"=>nil, "original_language"=>nil}, null: false
+    t.jsonb "content_details", default: {"country"=>nil, "original_language"=>nil}, null: false
     t.integer "status", null: false
     t.bigint "movie_genre_id", null: false
     t.bigint "video_link_id"

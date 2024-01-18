@@ -46,7 +46,7 @@ class Api::SeasonsController < Api::ApiController
   end
 
   def season_params
-    params.require(:season).permit(:title, :description, :image_url, :status,
+    params.require(:season).permit(:title, :description, :image_url, :released_at, :status,
                                    :video_link_id, :episods_counter, :serie_id)
   end
 end

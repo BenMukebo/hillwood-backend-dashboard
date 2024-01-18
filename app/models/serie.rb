@@ -9,7 +9,7 @@ class Serie < ApplicationRecord
   # has_many :serie_comments, dependent: :destroy
   # has_many :serie_likes, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 60 }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 60 }
   validates :description, presence: true, length: { minimum: 12, maximum: 1200 }
   validates :image_url, format: { with: URI::DEFAULT_PARSER.make_regexp }, allow_blank: true
   validates :content_details, presence: true
@@ -26,6 +26,6 @@ class Serie < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[movie_genre movie_writter video_link]
+    %w[movie_genre movie_writter seasons episodes video_link]
   end
 end
