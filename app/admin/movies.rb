@@ -22,21 +22,23 @@ ActiveAdmin.register Movie do
       image_tag movie.image_url, width: 40, height: 30
     end
     column :name
-    # column :category
     column :released_at
     column :video_link
     column :trailer_link
-    column :views_counter
-    column :likes_counter
-    column :comments_counter
-    # column :video_id
-    column :status
+    column 'Views', :views_counter
+    column 'Likes', :likes_counter
+    column 'Comments', :comments_counter
     column 'Genre', :movie_genre
     column 'Author', :movie_writter
+    column :status
     # column 'Outcasts', :movie_outcasts
 
-    actions
+    actions only: %i[show edit update] # TODO: Fix the only: options
   end
+
+  # index as: :grid do |movie|
+  #   link_to image_tag(movie.image_url), admin_movie_path(movie)
+  # end
 
   show do
     attributes_table do
@@ -88,15 +90,28 @@ ActiveAdmin.register Movie do
 
   filter :name
   filter :category
-  filter :status
+  filter :status, as: :select, collection: Movie.statuses.keys
+  # filter :status, as: :select, collection: Movie.statuses.map { |status, _value| [status, status] }
   filter :released_at
-  filter :views_counter
   filter :movie_genre
-  filter :movie_writter
+  filter :movie_writter, as: :select, collection: MovieWritter.all.map { |writter| [writter.first_name, writter.id] }
   filter :movie_outcast_id
   filter :created_at
 
-  # or
+  scope :all, default: true
+
+  scope :published do |movies|
+    movies.where(status: 1)
+  end
+
+  scope :unreleased do |movies|
+    movies.where(status: 0)
+  end
+
+  scope :banned do |movies|
+    movies.where(status: 2)
+  end
+
   # permit_params do
   #   permitted = [:name, :description, :category, :image_url, :content_details,
   #                :views_counter, :likes_counter, :comments_counter, :status,

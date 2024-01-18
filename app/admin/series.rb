@@ -1,5 +1,5 @@
 ActiveAdmin.register Serie do
-  permit_params :name, :description, :category, :image_url, :status,
+  permit_params :name, :description, :category, :image_url, :views, :status,
                 :movie_genre_id, :video_link_id, :movie_writter_id, :movie_outcast_id,
                 content_details: %i[duration country licence original_language]
 
@@ -10,13 +10,25 @@ ActiveAdmin.register Serie do
       image_tag serie.image_url, width: 40, height: 30
     end
     column :name
-    column :content_details
-    column :status
+    column :comments do |serie|
+      serie.serie_comments.count
+    end
+    column :likes do |serie|
+      serie.serie_likes.count
+    end
+    column :views
+    column 'Preview video', :video_link
     column 'Genre', :movie_genre
     column 'Author', :movie_writter
+    column :seasons, as: :select
+    # column :seasons_list do |serie|
+    #   serie.seasons.map(&:title).join(', ')
+    #   serie.seasons.map { |season| link_to season.title, [:admin, season] }.join(', ').html_safe
+    # end
+    column :status
     # column 'Outcasts', :movie_outcasts
 
-    actions
+    actions only: %i[show edit update]
   end
 
   show do
@@ -28,6 +40,13 @@ ActiveAdmin.register Serie do
         image_tag serie.image_url, width: 100, height: 70
       end
       row :content_details
+      row :views
+      row :likes do |serie|
+        serie.serie_likes.count
+      end
+      row :comments do |serie|
+        serie.serie_comments.count
+      end
       row :status
       row :movie_genre
       row :video_link
@@ -57,6 +76,20 @@ ActiveAdmin.register Serie do
   filter :movie_outcast
   filter :created_at
 
+  scope :all, default: true
+
+  scope :published do |movies|
+    movies.where(status: 1)
+  end
+
+  scope :unreleased do |movies|
+    movies.where(status: 0)
+  end
+
+  scope :banned do |movies|
+    movies.where(status: 2)
+  end
+
   form do |f|
     f.inputs do
       f.input :name
@@ -73,8 +106,6 @@ ActiveAdmin.register Serie do
     f.actions
   end
 
-  # or
-  #
   # permit_params do
   #   permitted = [:name, :description, :category, :image_url,
   # :content_details, :status, :movie_genre_id, :video_id,
