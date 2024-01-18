@@ -25,4 +25,3 @@ module Series
     end
   end
 end
-
