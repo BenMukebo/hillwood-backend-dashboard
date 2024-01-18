@@ -6,8 +6,8 @@ class Serie < ApplicationRecord
 
   has_many :seasons, dependent: :destroy
   has_many :episodes, through: :seasons, dependent: :destroy
-  # has_many :serie_comments, dependent: :destroy
-  # has_many :serie_likes, dependent: :destroy
+  has_many :serie_comments, dependent: :destroy
+  has_many :serie_likes, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 60 }
   validates :description, presence: true, length: { minimum: 12, maximum: 1200 }
@@ -26,6 +26,6 @@ class Serie < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[movie_genre movie_writter seasons episodes video_link]
+    %w[serie_comments movie_genre movie_writter seasons episodes video_link]
   end
 end

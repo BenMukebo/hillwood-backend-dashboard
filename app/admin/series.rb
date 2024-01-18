@@ -37,7 +37,12 @@ ActiveAdmin.register Serie do
       row :updated_at
       table_for serie.seasons.order('title ASC') do
         column 'seasons' do |season|
-          link_to season.title, [:admin, season] # TODO: Understand the :admin
+          link_to season.title, [:admin, season]
+        end
+      end
+      table_for serie.serie_comments.order('id ASC') do
+        column 'serie_comments' do |serie_comment|
+          link_to serie_comment.text, [:admin, serie_comment]
         end
       end
     end
