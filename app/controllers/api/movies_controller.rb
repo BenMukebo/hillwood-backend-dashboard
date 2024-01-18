@@ -2,28 +2,29 @@ class Api::MoviesController < Api::ApiController
   before_action :set_movie, only: %i[show update destroy]
 
   def index
-    @movies = if params[:search].present?
-                Movie.includes(:movie_genre).where('name LIKE :search', search: "%#{params[:search]}%")
-              else
-                Movie.includes(:movie_genre).all.to_a
-              end
+    @search = search_params[:search]
+    # @movies = @search.present? ? movie_scope.where('name LIKE :search', search: "%#{@search}%") : movie_scope
+    @movies = @search.present? ? movie_scope.search_by_name(@search) : movie_scope
 
     # Check if movies are present
     if @movies.any?
       render_success_response('Movies fetched successfully', @movies, serializer: Movies::MovieSerializer)
-    elsif params[:search].present?
-      # Check if there is a search parameter
-      render_not_found_response("No movies #{params[:search]} with the given search criteria.")
+      # elsif params[:search].present?
+      # render_not_found_response("No movies #{params[:search]} with the given search criteria.")
     else
-      # Render an empty array when there is no search parameter
-      render_success_response('Movies fetched successfully', [], serializer: Movies::MovieSerializer)
+      render_success_response("No movies #{@search} found in the DB", @movies, serializer: Movies::MovieSerializer)
     end
   end
 
   def options
-    @movies = Movie.includes(:movie_genre).all
+    @search = search_params[:search]
+    @movies = @search.present? ? movie_scope.search_by_name(@search) : movie_scope
 
-    render_success_response('Movies options', @movies, serializer: Movies::MovieOptionSerializer)
+    if @movies.any?
+      render_success_response('Movies options', @movies, serializer: Movies::MovieOptionSerializer)
+    else
+      render_success_response("No movies #{@search} found in the DB", @movies, serializer: Movies::MovieOptionSerializer)
+    end
   end
 
   def show
@@ -56,8 +57,25 @@ class Api::MoviesController < Api::ApiController
 
   private
 
+  def movie_scope
+    # Movie.includes(:movie_genre).all.where(status: 1).order('id DESC')
+    Movie.includes(:movie_genre).all.released
+  end
+
   def set_movie
     @movie = Movie.find(params[:id])
+  end
+
+  # def set_movie_by_name
+  #   @movie = Movie.find_by(name: params[:name])
+  # end
+
+  def request_method
+    request.method.downcase
+  end
+
+  def search_params
+    params.permit(:keyword, :page, :per_page, :search, :status)
   end
 
   def movie_params

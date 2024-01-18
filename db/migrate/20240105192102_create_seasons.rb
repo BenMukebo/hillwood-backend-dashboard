@@ -4,6 +4,7 @@ class CreateSeasons < ActiveRecord::Migration[7.0]
       t.string :title, null: false, index: true
       t.text :description
       t.string :image_url
+      t.date :released_at
       t.integer :status, null: false
       t.references :video_link, foreign_key: { to_table: :videos }
       t.integer :episods_counter

@@ -1,4 +1,4 @@
-class Series::SeriesOptionSerializer < ApplicationSerializer
+class Series::SerieOptionSerializer < ApplicationSerializer
   attributes :value, :name, :image_url
 
   def value

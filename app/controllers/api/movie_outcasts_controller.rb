@@ -54,8 +54,8 @@ class Api::MovieOutcastsController < Api::ApiController
 
   def movie_outcast_params
     params.require(:movie_outcast).permit(
-      :avatar_url, :first_name, :last_name, :status, { personal_details:
-      %i[address bio date_of_birth first_name last_name phone_number interests languages sex] }
+      :avatar_url, :first_name, :last_name, :date_of_birth, :status, { personal_details:
+      %i[address bio date_of_birth email interests languages sex] }
     )
   end
 end

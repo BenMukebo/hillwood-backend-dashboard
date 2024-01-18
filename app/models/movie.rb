@@ -16,7 +16,7 @@ class Movie < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 60 }
   validates :description, presence: true, length: { minimum: 12, maximum: 1200 }
-  validates :image_url, format: { with: URI::DEFAULT_PARSER.make_regexp }
+  validates :image_url, format: { with: URI::DEFAULT_PARSER.make_regexp }, allow_blank: true
   validates :content_details, presence: true
   validates :views_counter, :likes_counter, :comments_counter,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
@@ -37,9 +37,18 @@ class Movie < ApplicationRecord
     %w[movie_comments movie_genre movie_likes movie_writter trailer_link video_link]
   end
 
-  # def self.search_by_name(name)
-  #   where('name ILIKE ?', "%#{name}%")
-  # end
+  def self.released
+    where(status: [1, 2])
+  end
+
+  def increment_view
+    self.views += 1
+    save
+  end
+
+  def self.search_by_name(name)
+    where('name ILIKE ?', "%#{name}%")
+  end
 
   # def self.search_by_category(category)
   #   where(category: category)

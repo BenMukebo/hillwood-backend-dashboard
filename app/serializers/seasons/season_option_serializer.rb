@@ -1,4 +1,4 @@
-class Movies::MovieOptionSerializer < ApplicationSerializer
+class Seasons::SeasonOptionSerializer < ApplicationSerializer
   attributes :value, :name, :image_url
 
   def value

@@ -1,13 +1,13 @@
-ActiveAdmin.register MovieComment do
-  menu parent: 'Movies', priority: 2, label: 'Movie Comments', url: '/admin/movie_comments'
-  permit_params :text, :likes_counter, :movie_id, :user_id
+ActiveAdmin.register SerieComment do
+  menu parent: 'Series', priority: 2
+  permit_params :text, :likes_counter, :serie_id, :user_id
 
   index do
     selectable_column
     id_column
     column :text
     column 'Comment Likes', :likes_counter
-    column :movie
+    column :serie
     column :user
     actions
   end
@@ -16,7 +16,7 @@ ActiveAdmin.register MovieComment do
     attributes_table do
       row :text
       row :likes_counter
-      row :movie
+      row :serie
       row :user
       row :created_at
       row :updated_at
@@ -25,11 +25,10 @@ ActiveAdmin.register MovieComment do
   end
 
   form do |f|
-    f.inputs 'MovieComment Input' do
+    f.inputs 'SerieComment Input' do
       f.input :text
-      # f.input :likes_counter
-      f.input :movie
-      f.input :user # TODO: let's use current_admin_user intead of userselecting a user
+      f.input :serie
+      f.input :user
     end
     f.actions
   end
@@ -39,7 +38,7 @@ ActiveAdmin.register MovieComment do
   filter :created_at
 
   # permit_params do
-  #   permitted = [:text, :likes_counter, :movie_id, :user_id]
+  #   permitted = [:text, :likes_counter, :serie_id, :user_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

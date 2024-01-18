@@ -2,62 +2,69 @@ class Api::SeriesController < Api::ApiController
   before_action :set_series, only: %i[show update destroy]
 
   def index
-    @series = if params[:search].present?
-                Serie.includes(:movie_genre).where('name LIKE :search', search: "%#{params[:search]}%")
-              else
-                Serie.includes(:movie_genre).all.to_a
-              end
+    @search = search_params[:search]
+    @series = @search.present? ? series_scope.search_by_name(@search) : series_scope
 
     # Check if series are present
     if @series.any?
-      render_success_response('Series fetched successfully', @series, serializer: Series::SeriesSerializer)
-    elsif params[:search].present?
-      # Check if there is a search parameter
-      render_not_found_response("No series #{params[:search]} with the given search criteria.")
+      render_success_response('Series fetched successfully', @series, serializer: Series::SerieSerializer)
     else
       # Render an empty array when there is no search parameter
-      render_success_response('Series fetched successfully', [], serializer: Series::SeriesSerializer)
+      render_success_response("No Series #{@search} found in the DB", [], serializer: Series::SerieSerializer)
     end
   end
 
   def options
-    @series = Series.includes(:movie_genre).all
+    @search = search_params[:search]
+    @series = @search.present? ? series_scope.search_by_name(@search) : series_scope
 
-    render_success_response('Series options', @series, serializer: Series::SeriesOptionSerializer)
+    if @series.any?
+      render_success_response('Series options', @series, serializer: Series::SerieOptionSerializer)
+    else
+      render_success_response("No Series #{@search} found in the DB", @series, serializer: Series::SerieOptionSerializer)
+    end
   end
 
   def show
-    render_show_response('Series fetched successfully', @series, serializer: Series::SeriesSerializer)
+    render_show_response('Series fetched successfully', @serie, serializer: Series::SerieSerializer)
   end
 
   def create
-    @series = Serie.new(series_params)
+    @serie = Serie.new(series_params)
 
-    if @series.save
-      render_show_response('Series created successfully', @series, serializer: Series::SeriesSerializer,
-                                                                   location: api_series_url(@series))
+    if @serie.save
+      render_show_response('Series created successfully', @serie, serializer: Series::SerieSerializer,
+                                                                  location: api_series_url(@serie))
     else
-      render json: @series.errors, status: :unprocessable_entity
+      render json: @serie.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    if @series.update(series_params)
-      render_show_response('Series updated successfully', @series, serializer: Series::SeriesSerializer,
-                                                                   location: api_series_url(@series))
+    if @serie.update(series_params)
+      render_show_response('Series updated successfully', @serie, serializer: Series::SerieSerializer,
+                                                                  location: api_series_url(@serie))
     else
-      render json: @series.errors, status: :unprocessable_entity
+      render json: @serie.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @series.destroy
+    @serie.destroy
   end
 
   private
 
+  def series_scope
+    Serie.includes(:movie_genre).all.released
+  end
+
+  def search_params
+    params.permit(:keyword, :page, :per_page, :search, :status)
+  end
+
   def set_series
-    @series = Serie.find(params[:id])
+    @serie = Serie.find(params[:id])
   end
 
   def series_params

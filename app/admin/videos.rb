@@ -31,6 +31,7 @@ ActiveAdmin.register Video do
 
   form do |f|
     f.inputs 'Video Details' do
+      f.input :title
       f.input :url
       f.input :status
       f.input :details, as: :json

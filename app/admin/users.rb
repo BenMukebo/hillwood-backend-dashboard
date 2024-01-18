@@ -17,7 +17,10 @@ ActiveAdmin.register User do
     end
     column :role
     column 'Verification', :verification_status
-    actions
+    actions defaults: false do |user|
+      item 'View', admin_user_path(user), class: 'member_link'
+      item 'Edit', edit_admin_user_path(user), class: 'member_link'
+    end
   end
 
   show do
@@ -64,6 +67,14 @@ ActiveAdmin.register User do
     end
     f.actions
   end
+
+  filter :username
+  filter :email
+  filter :phone_number
+  filter :age_group
+  filter :verification_status
+  filter :role
+  filter :created_at
 
   # belongs_to :role, optional: true
 

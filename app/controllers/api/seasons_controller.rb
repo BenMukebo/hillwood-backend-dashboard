@@ -1,4 +1,4 @@
-class SeasonsController < ApplicationController
+class Api::SeasonsController < Api::ApiController
   before_action :set_season, only: %i[show update destroy]
 
   def index
@@ -46,7 +46,7 @@ class SeasonsController < ApplicationController
   end
 
   def season_params
-    params.require(:season).permit(:title, :description, :image_url, :status,
+    params.require(:season).permit(:title, :description, :image_url, :released_at, :status,
                                    :video_link_id, :episods_counter, :serie_id)
   end
 end

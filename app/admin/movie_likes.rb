@@ -1,4 +1,5 @@
 ActiveAdmin.register MovieLike do
+  menu parent: 'Movies', priority: 2, label: 'Movie Likes', url: '/admin/movie_likes'
   permit_params :movie_id, :user_id
 
   form do |f|
