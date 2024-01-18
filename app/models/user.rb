@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   belongs_to :role
   has_many :movie_comments
   has_one :movie_like
+  has_many :serie_comments
+  has_one :serie_like
 
   after_initialize :set_default_role, if: :new_record?
   # after_save :update_posts_counter
@@ -44,6 +46,10 @@ class User < ActiveRecord::Base
   def admin?
     role.name == 'admin'
   end
+
+  # def profile_avatar_url
+  #   profile['avatar_url']
+  # end
 
   # Override the as_json method to customize the token payload
   # def as_json(options = {})
