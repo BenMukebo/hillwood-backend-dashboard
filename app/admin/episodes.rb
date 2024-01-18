@@ -64,7 +64,8 @@ ActiveAdmin.register Episode do
   # or
   #
   # permit_params do
-  #   permitted = [:name, :description, :image_url, :released_at, :duration, :status, :video_link_id, :trailer_link_id, :season_id, :serie_id]
+  #   permitted = [:name, :description, :image_url, :released_at, :duration, :status,
+  #                :video_link_id, :trailer_link_id, :season_id, :serie_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

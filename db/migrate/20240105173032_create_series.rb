@@ -8,6 +8,7 @@ class CreateSeries < ActiveRecord::Migration[7.0]
       t.jsonb :content_details, null: false, default: {
         country: nil, original_language: nil
       }
+      t.integer :views, default: 0, null: false
       t.integer :status, null: false
       t.references :movie_genre, null: false, foreign_key: true
       t.references :video_link, foreign_key:  { to_table: :videos }

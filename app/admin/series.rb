@@ -76,20 +76,6 @@ ActiveAdmin.register Serie do
   filter :movie_outcast
   filter :created_at
 
-  scope :all, default: true
-
-  scope :published do |movies|
-    movies.where(status: 1)
-  end
-
-  scope :unreleased do |movies|
-    movies.where(status: 0)
-  end
-
-  scope :banned do |movies|
-    movies.where(status: 2)
-  end
-
   form do |f|
     f.inputs do
       f.input :name
@@ -104,6 +90,20 @@ ActiveAdmin.register Serie do
       f.input :movie_outcast_id
     end
     f.actions
+  end
+
+  scope :all, default: true
+
+  scope :published do |movies|
+    movies.where(status: 1)
+  end
+
+  scope :unreleased do |movies|
+    movies.where(status: 0)
+  end
+
+  scope :banned do |movies|
+    movies.where(status: 2)
   end
 
   # permit_params do

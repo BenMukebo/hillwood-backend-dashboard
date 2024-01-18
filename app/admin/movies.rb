@@ -12,7 +12,6 @@ ActiveAdmin.register Movie do
   #   end
   # end
 
-  # belongs_to :movie_writter
   # navigation_menu :movie_writter
 
   index do
@@ -63,7 +62,7 @@ ActiveAdmin.register Movie do
       row :updated_at
       table_for movie.movie_comments.order('id ASC') do
         column 'movie_comments' do |movie_comment|
-          link_to movie_comment.text, [:admin, movie_comment] # item_path(movie_comment) TODO: Understand the :admin
+          link_to movie_comment.text, [:admin, movie_comment] # item_path(movie_comment)
         end
       end
     end
