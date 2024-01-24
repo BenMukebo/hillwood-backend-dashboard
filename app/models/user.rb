@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   after_initialize :set_default_role, if: :new_record?
   # after_save :update_posts_counter
   # after_create :recent_comments
+  # to ensure that the welcome email is sent only on the initial confirmation and not on subsequent changes to the user record
+  after_commit :send_welcome_email, if: -> { confirmed? && !welcome_email_send }
+  # to sending the welcome email on any change to the confirmed_at attribute, including subsequent changes,
+  # after_commit :send_welcome_email, if: :confirmed_at_previously_changed?
 
   # add sign up validation
   # , on: :update, unless: :admin? # , on: :create, unless: :admin?
@@ -75,6 +79,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_now
+    update(welcome_email_send: true)
+  end
 
   def set_default_role
     self.role = Role.find_or_create_by(name: 'user') if role.nil?
