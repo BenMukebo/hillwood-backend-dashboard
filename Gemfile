@@ -5,7 +5,6 @@ ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.8'
-
 gem 'rubocop', '>= 1.0', '< 2.0'
 
 gem 'activeadmin' # , '~> 3.1.0'
@@ -34,9 +33,11 @@ gem 'pg', '~> 1.1'
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
 
+gem 'pry', '~> 0.14.2'
 gem 'pundit', '~> 2.3'
 
-gem 'pry', '~> 0.14.2'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
@@ -79,6 +80,8 @@ gem 'bootsnap', require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails'
+  gem 'rswag-specs'
 end
 
 group :development do
