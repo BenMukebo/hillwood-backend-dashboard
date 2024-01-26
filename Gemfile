@@ -17,6 +17,7 @@ gem 'devise_token_auth' # , '~> 1.2.2'
 gem 'active_model_serializers', '~> 0.10.0'
 # gem 'fast_jsonapi'
 
+gem 'faker'
 gem 'figaro'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]

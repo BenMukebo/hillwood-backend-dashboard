@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  config.per_page = [10, 15, 20]
   json_editor
 
   index do
