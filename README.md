@@ -97,6 +97,13 @@ $ rubocop -A
 $ rubocop --auto-correct-all
 $ npx stylelint "**/*.{css,scss}"
 ```
+- Kill the server
+
+```
+$ kill -9 PID
+$ pkill -f "ruby"
+$ rm tmp/pids/server.pid
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
