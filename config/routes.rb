@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   
   root to: 'admin/dashboard#index'
   resources :roles
-  
+
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+
   namespace :api, defaults: { format: :json } do
     root 'users#index'
     # mount_devise_token_auth_for 'User', at: 'auth', base_controller: 'Api::ApiController' # This didn't work
