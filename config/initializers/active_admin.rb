@@ -4,7 +4,7 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Hillwood Backend Dashboard"
+  config.site_title = "Hillwood Dashboard"
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -59,6 +59,27 @@ ActiveAdmin.setup do |config|
   #   config.namespace :admin do |admin|
   #     admin.site_title = "Custom Admin Title"
   #   end
+
+  config.namespace :admin do |admin|
+  admin.build_menu do |menu|
+    menu.add label: "Front End App", url: "/", priority: 1
+    menu.add label: "Swagger docs", url: "/", priority: 2
+
+    menu.add label: "Sites" do |sites|
+      sites.add label: "Google",
+                url: "https://google.com",
+                html_options: { target: :blank }
+
+      sites.add label: "Facebook",
+                url: "https://facebook.com",
+                html_options: { target: :blank }
+
+      sites.add label: "Github",
+                url: "https://github.com",
+                html_options: { target: :blank }
+    end
+  end
+end
   #
   # This will ONLY change the title for the admin section. Other
   # namespaces will continue to use the main "site_title" configuration.
@@ -230,8 +251,11 @@ ActiveAdmin.setup do |config|
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
   #
+  config.register_stylesheet 'active_admin/json_editor.css'
+
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
+  config.register_javascript 'active_admin/json_editor.js'
 
   # == CSV options
   #
@@ -287,9 +311,9 @@ ActiveAdmin.setup do |config|
   #
   # Pagination is enabled by default for all resources.
   # You can control the default per page count for all resources here.
-  #
-  # config.default_per_page = 30
-  #
+
+  config.default_per_page = 15
+
   # You can control the max per page count too.
   #
   # config.max_per_page = 10_000

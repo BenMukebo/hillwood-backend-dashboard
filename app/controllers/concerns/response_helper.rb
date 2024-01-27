@@ -4,23 +4,44 @@ module ResponseHelper
   WillPaginate.per_page = 10 # set per_page globally
 
   # Query params: ?search, ?per_page, ?page
-  def render_success_response(message, data, total_page: nil)
+
+  def render_success_response(message, data, serializer: nil)
     current_page = params[:page] || 1
-    total_page ||= 1
-    items_per_page = params[:per_page]
-    paginate_data = data.paginate(page: params[:page] || 1, per_page: items_per_page)
-    page_size = paginate_data.count
+    items_per_page = params[:per_page] || WillPaginate.per_page
+
+    # total_page ||= 1
+    total_items = data.count || 0
+    total_pages = total_items.positive? ? (total_items / items_per_page.to_f).ceil : 0
+
+    # paginate_data = data.paginate(page: params[:page] || 1, per_page: items_per_page)
+    serialized_data = serializer ? ActiveModelSerializers::SerializableResource.new(data, each_serializer: serializer).as_json : data
+    @paginate_data = serialized_data.paginate(page: params[:page] || 1, per_page: items_per_page)
 
     render json: {
       success: true,
       # successCode: "S000",
       statusCode: 200,
       message: message,
-      data: paginate_data,
+      data: @paginate_data,
       currentPage: current_page.to_i,
-      page_size: page_size,
-      totalPage: total_page
+      totalPages: total_pages,
+      pageSize: @paginate_data.count,
+      totalItems: total_items
     }, status: :ok
+  end
+
+  def render_show_response(message, data, serializer: nil, location: nil)
+    response_hash = {
+      success: true,
+      # successCode: "S000",
+      statusCode: 201,
+      message: message,
+      data: serializer ? ActiveModelSerializers::SerializableResource.new(data, serializer: serializer).as_json : data
+    }
+
+    # response_hash[:location] = location if location.present? # this add the location to both response header and body
+    render json: response_hash, status: :ok
+    response.headers['Location'] = location if location.present?
   end
 
   def render_not_found_response(message)

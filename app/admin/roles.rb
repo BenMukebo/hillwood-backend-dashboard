@@ -4,7 +4,7 @@ ActiveAdmin.register Role do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :name
+  permit_params :name
   #
   # or
   #
@@ -13,4 +13,6 @@ ActiveAdmin.register Role do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  actions :all, except: [:destroy]
 end
