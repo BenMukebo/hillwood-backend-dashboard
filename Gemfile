@@ -9,6 +9,7 @@ gem 'rails', '~> 7.0.8'
 gem 'rubocop', '>= 1.0', '< 2.0'
 
 gem 'activeadmin' # , '~> 3.1.0'
+gem 'active_admin_flat_skin' # , '~> 1.0.0'
 gem 'activeadmin_json_editor', '~> 0.0.7'
 
 gem 'devise' # , '~> 4.9.3'
