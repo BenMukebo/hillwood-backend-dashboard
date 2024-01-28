@@ -8,7 +8,7 @@ one:
   content_details: 
   content_rating: 
   content_history: 
-  views_counter: MyString
+  views: MyString
   likes_counter: MyString
   comments_counter: MyString
   status: 1
@@ -26,7 +26,7 @@ two:
   content_details: 
   content_rating: 
   content_history: 
-  views_counter: MyString
+  views: MyString
   likes_counter: MyString
   comments_counter: MyString
   status: 1

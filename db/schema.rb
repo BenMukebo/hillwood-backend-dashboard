@@ -122,7 +122,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_18_004703) do
     t.string "image_url"
     t.date "released_at"
     t.jsonb "content_details", default: {"country"=>nil, "duration"=>nil, "original_language"=>nil}, null: false
-    t.integer "views_counter", default: 0, null: false
+    t.integer "views", default: 0, null: false
     t.integer "likes_counter", default: 0, null: false
     t.integer "comments_counter", default: 0, null: false
     t.integer "status", null: false
@@ -191,6 +191,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_18_004703) do
     t.integer "category"
     t.string "image_url"
     t.jsonb "content_details", default: {"country"=>nil, "original_language"=>nil}, null: false
+    t.integer "views", default: 0, null: false
     t.integer "status", null: false
     t.bigint "movie_genre_id", null: false
     t.bigint "video_link_id"

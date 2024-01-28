@@ -9,7 +9,7 @@ class CreateMovies < ActiveRecord::Migration[7.0]
       t.jsonb :content_details, null: false, default: {
         country: nil, duration: nil, original_language: nil
       }
-      t.integer :views_counter, default: 0, null: false
+      t.integer :views, default: 0, null: false
       t.integer :likes_counter, default: 0, null: false
       t.integer :comments_counter, default: 0, null: false
       t.integer :status, null: false

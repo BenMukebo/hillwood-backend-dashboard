@@ -18,7 +18,7 @@ class Movie < ApplicationRecord
   validates :description, presence: true, length: { minimum: 12, maximum: 1200 }
   validates :image_url, format: { with: URI::DEFAULT_PARSER.make_regexp }, allow_blank: true
   validates :content_details, presence: true
-  validates :views_counter, :likes_counter, :comments_counter,
+  validates :views, :likes_counter, :comments_counter,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   enum status: { unreleased: 0, released: 1, banned: 2 }, _default: 'unreleased', _prefix: true
@@ -29,7 +29,7 @@ class Movie < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[id name category content_details created_at description image_url status
-       comments_counter likes_counter views_counter trailer_link_id video_link_id updated_at
+       comments_counter likes_counter views trailer_link_id video_link_id updated_at
        movie_genre_id movie_outcast_id movie_writter_id ]
   end
 

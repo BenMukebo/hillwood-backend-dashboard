@@ -2,7 +2,7 @@ ActiveAdmin.register Movie do
   config.per_page = [10, 15, 20]
   json_editor
   permit_params :name, :description, :category, :image_url, :released_at,
-                :views_counter, :likes_counter, :comments_counter, :status,
+                :views, :likes_counter, :comments_counter, :status,
                 :movie_genre_id, :video_link_id, :trailer_link_id, :movie_writter_id,
                 :movie_outcast_id, movie_outcast_ids: [], movie_comment_ids: [],
                                    content_details: %i[duration country licence original_language]
@@ -26,7 +26,7 @@ ActiveAdmin.register Movie do
     column :released_at
     column :video_link
     column :trailer_link
-    column 'Views', :views_counter
+    column 'Views', :views
     column 'Likes', :likes_counter
     column 'Comments', :comments_counter
     column 'Genre', :movie_genre
@@ -51,7 +51,7 @@ ActiveAdmin.register Movie do
       end
       row :released_at
       row :content_details, as: :json
-      row :views_counter
+      row :views
       row :likes_counter
       row :comments_counter
       row :status
@@ -115,7 +115,7 @@ ActiveAdmin.register Movie do
 
   # permit_params do
   #   permitted = [:name, :description, :category, :image_url, :content_details,
-  #                :views_counter, :likes_counter, :comments_counter, :status,
+  #                :views, :likes_counter, :comments_counter, :status,
   #                :movie_genre_id, :video_link_id, :trailer_link_id,
   #                :movie_writter_id, :movie_outcast_ids]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?

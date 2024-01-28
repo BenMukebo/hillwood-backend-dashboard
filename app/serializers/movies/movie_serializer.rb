@@ -3,7 +3,7 @@ module Movies
     attributes :id, :name, :description, :category, :image_url, :genre,
                :released_at, :content_details,
                # :content_rating, :content_history,
-               :views_counter, :likes_counter, :comments_counter, :status
+               :views, :likes_counter, :comments_counter, :status
 
     # has_one :movie_genre # You can use either has_one or belongs_to
     # belongs_to :genre # You can use any any (movie_genre or genre) as long as you have the serializer method
