@@ -14,25 +14,38 @@
 ### Tech Stack <a name="tech-stack"></a>
 
 <details>
-  <summary>Backend - Dashboard</summary>
+  <summary>Backend</summary>
     <li><a href="#">Ruby</a></li>
     <li><a href="#">Ruby on Rails</a></li>
-    <li><a href="https://github.com/activeadmin/activeadmin">Active Admin</a></li>
-    <li><a href="https://github.com/ayann/active_admin_flat_skin">ActiveAdminFlatSkin</a></li>
-    <li><a href="https://github.com/activeadmin/activeadmin/wiki/Themes">Themes</a></li>
-
+    <li><a href="#">PostgreSQL DB</a></li>
   </ul>
 </details>
 
 <details>
-  <summary>Links </summary>
+  <summary>Admin Dashboard</summary>
+    <li><a href="https://github.com/activeadmin/activeadmin">Active Admin</a></li>
+    <li><a href="https://github.com/activeadmin-plugins/active_admin_theme">ActiveAdminTheme</a></li>
+    <li><a href="https://github.com/ayann/active_admin_flat_skin">ActiveAdminFlatSkin</a></li>
+  </ul>
+</details>
+
+<details>
+  <summary>Diagram</summary>
   <ul>
     <li><a href="https://drawsql.app/teams/chaw-1/diagrams/hillwood-backend2">ERD Diagram</a></li>
+    <li><a href="https://hillwood-frontend-ui.vercel.app/">Front-end</a></li>
     <li><a href="#">Version 1 features</a></li>
   </ul>
 </details>
 
-</details>
+
+
+
+## Links 🔗
+
+- [Front-end App](https://hillwood-frontend-ui.vercel.app/)
+- [Backend API](https://)
+
 
 ### Key Features <a name="key-features"></a>
 
