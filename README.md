@@ -22,14 +22,6 @@
 </details>
 
 <details>
-  <summary>Backend</summary>
-    <li><a href="https://hillwood-frontend-ui-git-nex-f76819-samuelrurangamirwa-gmailcom.vercel.app/">Ruby</a></li>
-    <li><a href="#">Ruby on Rails</a></li>
-    <li><a href="#">PostgreSQL DB</a></li>
-  </ul>
-</details>
-
-<details>
   <summary>Admin Dashboard</summary>
     <li><a href="https://github.com/activeadmin/activeadmin">Active Admin</a></li>
     <li><a href="https://github.com/activeadmin-plugins/active_admin_theme">ActiveAdminTheme</a></li>
@@ -38,12 +30,22 @@
 </details>
 
 <details>
-  <summary>Links </summary>
+  <summary>Diagram</summary>
   <ul>
     <li><a href="https://drawsql.app/teams/chaw-1/diagrams/hillwood-backend2">ERD Diagram</a></li>
+    <li><a href="https://hillwood-frontend-ui.vercel.app/">Front-end</a></li>
     <li><a href="#">Version 1 features</a></li>
   </ul>
 </details>
+
+
+
+
+## Links 🔗
+
+- [Front-end App](https://hillwood-frontend-ui.vercel.app/)
+- [Backend API](https://)
+
 
 ### Key Features <a name="key-features"></a>
 

@@ -62,7 +62,7 @@ ActiveAdmin.setup do |config|
 
   config.namespace :admin do |admin|
   admin.build_menu do |menu|
-    menu.add label: "Front End App", url: "/", priority: 1
+    menu.add label: "Front End App", url: "https://hillwood-frontend-ui.vercel.app/", priority: 1
     menu.add label: "Swagger docs", url: "/", priority: 2
 
     menu.add label: "Sites" do |sites|
