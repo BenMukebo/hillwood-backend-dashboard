@@ -19,7 +19,7 @@ if Rails.env.development?
     MovieGenre.find_or_create_by!(name: genre_name)
   end
 
-  puts "Create Videos"
+  puts "=====> Create Videos"
   VIDEOS_MOVIES.each do |video|
     Video.find_or_create_by!(video)
   end
@@ -50,10 +50,10 @@ if Rails.env.development?
     )
   end
 
-  puts "=====> Create MovieOutcasts"
+   puts "=====> Create Outcasts"
 
   (1..30).each do |outcast|
-    MovieOutcast.create!(
+    Outcast.create!(
       avatar_url: Faker::Avatar.image(slug: Faker::Name.name, size: '50x50', format: 'jpg'),
       # Faker::Avatar.image(slug: "my-own-slug", size: "50x50", format: "bmp", set: "set1", bgset: "bg1")
       #=> "https://robohash.org/my-own-slug.bmp?size=50x50&set=set1&bgset=bg1"
@@ -72,6 +72,30 @@ if Rails.env.development?
       status: rand(0..2)
     )
   end
+
+
+  puts "=====> Create MovieOutcasts"
+
+  # (1..30).each do |outcast|
+  #   MovieOutcast.create!(
+  #     avatar_url: Faker::Avatar.image(slug: Faker::Name.name, size: '50x50', format: 'jpg'),
+  #     # Faker::Avatar.image(slug: "my-own-slug", size: "50x50", format: "bmp", set: "set1", bgset: "bg1")
+  #     #=> "https://robohash.org/my-own-slug.bmp?size=50x50&set=set1&bgset=bg1"
+  #     first_name: Faker::Name.first_name,
+  #     last_name: Faker::Name.last_name,
+  #     date_of_birth: Faker::Date.between(from: 2.days.ago, to: Date.today),
+  #     # date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 65),
+  #     personal_details: {
+  #       address: Faker::Address.full_address,
+  #       bio: Faker::Lorem.paragraph(sentence_count: 3),
+  #       email_address: Faker::Internet.email,
+  #       sex: Faker::Gender.short_binary_type, #=> "f"
+  #       interests: Faker::Lorem.sentence(word_count: 3),
+  #       languages: ['English', 'Frensh', 'Spanish']
+  #     },
+  #     status: rand(0..2)
+  #   )
+  # end
 
   puts "=====> Create Movies"
 
@@ -93,7 +117,7 @@ if Rails.env.development?
       video_link_id: rand(1..3),
       trailer_link_id: rand(3..VIDEOS_MOVIES.size),
       movie_writter_id: rand(1..15),
-      movie_outcast_id: rand(1..30)
+      # movie_outcast_id: rand(1..30)
     )
   end
 
@@ -113,7 +137,7 @@ if Rails.env.development?
       movie_genre_id: rand(1..DEFAUT_MOVIE_GENRES.size),
       video_link_id: rand(1..VIDEOS_MOVIES.size),
       movie_writter_id: rand(1..15),
-      movie_outcast_id: rand(1..30)
+      # movie_outcast_id: rand(1..30)
     )
   end
   

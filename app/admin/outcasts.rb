@@ -1,4 +1,4 @@
-ActiveAdmin.register MovieOutcast do
+ActiveAdmin.register Outcast do
   config.per_page = 10
   json_editor
   permit_params :avatar_url, :first_name, :last_name, :date_of_birth,
@@ -49,7 +49,7 @@ ActiveAdmin.register MovieOutcast do
   end
 
   # permit_params do
-  #   permitted = [:avatar_url, :first_name, :last_name, :personal_details, :status]
+  #   permitted = [:avatar_url, :first_name, :last_name, :date_of_birth, :personal_details, :status]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
