@@ -1,15 +1,16 @@
 class Movie < ApplicationRecord
   belongs_to :movie_genre
-  belongs_to :movie_writter, optional: true # , class_name: 'MovieWritter', foreign_key: 'movie_writter_id'
-  # has_many :movie_outcasts, class_name: 'MovieOutcast', foreign_key: 'movie_outcast_id', dependent: :destroy
-  # has_and_belongs_to_many :movie_outcasts, join_table: :movies_movie_outcasts
+  belongs_to :movie_writter, optional: true
 
   belongs_to :video_link, class_name: 'Video', optional: true # , foreign_key: :video_link_id
   belongs_to :trailer_link, class_name: 'Video', optional: true # , foreign_key: :trailer_link_id
 
   # has_one :trailer_link, foreign_key: :video_link_id
   # has_one :video_link, foreign_key: :trailer_link_id
-  # belongs_to :movie_outcast
+
+  # has_and_belongs_to_many :movie_outcasts, join_table: :movies_movie_outcasts
+  has_many :outcast_associations, as: :media_association, dependent: :destroy
+  has_many :outcasts, through: :outcast_associations
 
   has_many :movie_comments, dependent: :destroy
   has_many :movie_likes, dependent: :destroy
