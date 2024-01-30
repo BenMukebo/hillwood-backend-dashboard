@@ -17,7 +17,6 @@ class CreateMovies < ActiveRecord::Migration[7.0]
       t.references :video_link, foreign_key: { to_table: :videos }
       t.references :trailer_link,  foreign_key: { to_table: :videos }
       t.references :movie_writter, foreign_key: true
-      t.references :movie_outcast, foreign_key: true
 
       t.timestamps
     end
