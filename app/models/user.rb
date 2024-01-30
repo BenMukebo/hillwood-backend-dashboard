@@ -11,10 +11,10 @@ class User < ActiveRecord::Base
   # self.skip_session_storage = [:http_auth, :params_auth]
 
   belongs_to :role
-  has_many :movie_comments
-  has_one :movie_like
-  has_many :serie_comments
-  has_one :serie_like
+  has_many :movie_comments, dependent: :nullify
+  has_one :movie_like, dependent: :nullify
+  has_many :serie_comments, dependent: :nullify
+  has_one :serie_like, dependent: :nullify
 
   after_initialize :set_default_role, if: :new_record?
   # after_save :update_posts_counter
