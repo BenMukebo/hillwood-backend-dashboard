@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  outcast: one
+  media_association: one
+  media_association_type: Media association
+  role: 1
+
+two:
+  outcast: two
+  media_association: two
+  media_association_type: Media association
+  role: 1
