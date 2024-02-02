@@ -65,18 +65,20 @@ ActiveAdmin.setup do |config|
     menu.add label: "Front End App", url: "https://hillwood-frontend-ui.vercel.app/", priority: 1
     menu.add label: "Swagger docs", url: "/", priority: 2
 
-    menu.add label: "Sites" do |sites|
-      sites.add label: "Google",
-                url: "https://google.com",
+    menu.add label: "Sites", priority: 20 do |sites|
+      sites.add label: "LinkedIn",
+                url: "https://www.linkedin.com/in/kasongo-mukebo-ben/",
                 html_options: { target: :blank }
-
+      sites.add label: "Github",
+                url: "https://github.com/BenMukebo",
+                html_options: { target: :blank }
+      sites.add label: "Twitter",
+                url: "https://twitter.com/BenMukebo",
+                html_options: { target: :blank }
       sites.add label: "Facebook",
                 url: "https://facebook.com",
                 html_options: { target: :blank }
 
-      sites.add label: "Github",
-                url: "https://github.com",
-                html_options: { target: :blank }
     end
   end
 end

@@ -1,4 +1,5 @@
 ActiveAdmin.register MovieGenre do
+  menu label: 'Genre'
   permit_params :name
 
   index do

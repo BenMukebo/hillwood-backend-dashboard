@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MovieOutcastTest < ActiveSupport::TestCase
+class OutcastAssociationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

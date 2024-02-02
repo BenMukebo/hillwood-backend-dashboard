@@ -1,5 +1,5 @@
-module MovieOutcasts
-  class MovieOutcastOptionSerializer < ApplicationSerializer
+module Outcasts
+  class OutcastOptionSerializer < ApplicationSerializer
     attributes :value, :name, :avatar_url
 
     def value

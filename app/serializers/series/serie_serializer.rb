@@ -6,6 +6,7 @@ module Series
     belongs_to :movie_genre
     has_one :video_link
     has_one :movie_writter, serializer: MovieWritters::MovieWritterOptionSerializer
+    has_many :outcasts, serializer: Outcasts::OutcastOptionSerializer
     has_many :serie_comments, serializer: SerieComments::SerieCommentSerializer
 
     def genre

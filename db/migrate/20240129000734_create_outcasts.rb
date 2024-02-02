@@ -1,6 +1,6 @@
-class CreateMovieOutcasts < ActiveRecord::Migration[7.0]
+class CreateOutcasts < ActiveRecord::Migration[7.0]
   def change
-    create_table :movie_outcasts do |t|
+    create_table :outcasts do |t|
       t.string :avatar_url
       t.string :first_name
       t.string :last_name
@@ -13,6 +13,6 @@ class CreateMovieOutcasts < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_index :movie_outcasts, :personal_details, using: :gin
+    add_index :outcasts, :personal_details, using: :gin
   end
 end

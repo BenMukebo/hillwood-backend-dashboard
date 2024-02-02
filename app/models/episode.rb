@@ -1,8 +1,8 @@
 class Episode < ApplicationRecord
   belongs_to :video_link, class_name: 'Video', optional: true
   belongs_to :trailer_link, class_name: 'Video', optional: true
-  belongs_to :season
-  belongs_to :serie
+  belongs_to :season, dependent: :destroy
+  belongs_to :serie, optional: true # , through: :season
 
   # has_many :episode_comments, dependent: :destroy
   # has_many :episode_likes, dependent: :destroy

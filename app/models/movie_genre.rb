@@ -1,6 +1,6 @@
 class MovieGenre < ApplicationRecord
-  has_many :movies
-  has_many :series, class_name: 'Serie', foreign_key: 'movie_genre_id'
+  has_many :movies, dependent: :restrict_with_error
+  has_many :series, class_name: 'Serie', foreign_key: 'movie_genre_id', dependent: :restrict_with_error
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   # , uniqueness: { scope: :movie_id }

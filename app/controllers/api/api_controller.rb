@@ -1,5 +1,5 @@
 module Api
-  class ApiController < ApplicationController::Base
+  class ApiController < ApplicationController
     include DeviseTokenAuth::Concerns::SetUserByToken
     # include Devise::Controllers::Helpers
     # include ActionController::Helpers # `helper' for ActiveAdmin::Devise::SessionsController:Class (NoMethodError)

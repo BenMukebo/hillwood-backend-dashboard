@@ -19,7 +19,7 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
                               movie_genre_id: @movie.movie_genre_id, movie_outcast_id: @movie.movie_outcast_id,
                               movie_writter_id: @movie.movie_writter_id, name: @movie.name, status: @movie.status,
                               trailer_link_id: @movie.trailer_link_id, video_link_id: @movie.video_link_id,
-                              views_counter: @movie.views_counter } }, as: :json
+                              views: @movie.views } }, as: :json
     end
 
     assert_response :created
@@ -38,7 +38,7 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
                              likes_counter: @movie.likes_counter, movie_genre_id: @movie.movie_genre_id,
                              movie_outcast_id: @movie.movie_outcast_id, movie_writter_id: @movie.movie_writter_id,
                              name: @movie.name, status: @movie.status, trailer_link_id: @movie.trailer_link_id,
-                             video_link_id: @movie.video_link_id, views_counter: @movie.views_counter } }, as: :json
+                             video_link_id: @movie.video_link_id, views: @movie.views } }, as: :json
     assert_response :success
   end
 

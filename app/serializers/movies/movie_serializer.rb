@@ -1,16 +1,15 @@
 module Movies
   class MovieSerializer < ApplicationSerializer
     attributes :id, :name, :description, :category, :image_url, :genre,
-               :released_at, :content_details,
-               # :content_rating, :content_history,
-               :views_counter, :likes_counter, :comments_counter, :status
+               :released_at, :content_details, # :content_rating, :content_history,
+               :views, :likes_counter, :comments_counter, :status
 
     # has_one :movie_genre # You can use either has_one or belongs_to
     # belongs_to :genre # You can use any any (movie_genre or genre) as long as you have the serializer method
     has_one :video_link
     has_one :trailer_link
     has_one :movie_writter, serializer: MovieWritters::MovieWritterOptionSerializer
-    # has_many :movie_outcasts
+    has_many :outcasts, serializer: Outcasts::OutcastOptionSerializer
     # has_many :movie_comments, serializer: MovieComments::MovieCommentSerializer
     # has_many :movie_likes, serializer: MovieLikes::MovieLikeSerializer
 

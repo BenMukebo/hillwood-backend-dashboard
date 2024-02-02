@@ -1,7 +1,7 @@
 class MovieComment < ApplicationRecord
   belongs_to :movie
   belongs_to :user
-  has_many :movie_likes, dependent: :destroy
+  # has_many :comment_likes, dependent: :destroy
 
   after_save :increase_commets_counter
   after_destroy :decrease_commets_counter
