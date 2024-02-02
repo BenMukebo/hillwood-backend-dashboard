@@ -26,7 +26,7 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   AllowedMethods: ['describe']
   # AllowedPatterns: ['describe']
-  Max: 98 # 30
+  Max: 108 # 30
 
 Style/Documentation:
   Enabled: false

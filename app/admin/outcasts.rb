@@ -84,6 +84,7 @@ ActiveAdmin.register Outcast do
         end
       end
     end
+
     active_admin_comments
   end
 
@@ -98,6 +99,7 @@ ActiveAdmin.register Outcast do
       f.input :movies, as: :check_boxes, collection: Movie.all.map { |movie| [movie.name, movie.id] }
       f.input :series, as: :check_boxes, collection: Serie.all.map { |serie| [serie.name, serie.id] }
     end
+
     f.actions
   end
 

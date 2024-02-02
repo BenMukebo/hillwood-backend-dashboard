@@ -19,7 +19,6 @@ ActiveAdmin.register MovieWritter do
     column :total_media do |movie_writter|
       movie_writter.series.count + movie_writter.movies.count
     end
-
     actions
   end
 
@@ -92,7 +91,6 @@ ActiveAdmin.register MovieWritter do
         end
       end
     end
-
     active_admin_comments
   end
 

@@ -22,13 +22,10 @@
 //
 //   .status_tag { background: #6090DB; }
 
-@mixin d-flex ($justify: flex-start, $align: stretch, $direction: row) {
+@mixin d-flex ($justify: flex-start, $align: stretch) {
   display: flex;
   justify-content: $justify;
   align-items: $align;
-  @if $direction {
-    flex-direction: $direction;
-  }
 }
 
 .choices-group {
@@ -53,6 +50,7 @@
 
 .fragments-group {
   @include d-flex($justify: flex-start);
+
   margin-left: 0 !important;
 }
 

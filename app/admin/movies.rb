@@ -23,14 +23,9 @@ ActiveAdmin.register Movie do
     column 'Genre', :movie_genre
     column 'Author', :movie_writter
     column :status
-    # column 'Outcasts', :movie_outcasts
 
     actions only: %i[show edit update] # TODO: Fix the only: options
   end
-
-  # index as: :grid do |movie|
-  #   link_to image_tag(movie.image_url), admin_movie_path(movie)
-  # end
 
   show do
     attributes_table do
@@ -61,6 +56,7 @@ ActiveAdmin.register Movie do
         end
       end
     end
+
     active_admin_comments
   end
 
