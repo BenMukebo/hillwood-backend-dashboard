@@ -50,9 +50,9 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs 'User Details' do
-      f.input :email
       f.input :username
-      if params[:action] == 'new' # Display password fields only on the create action
+      f.input :email
+      if f.object.new_record?
         f.input :password
         f.input :password_confirmation
       end
@@ -61,10 +61,13 @@ ActiveAdmin.register User do
       f.input :verification_status
       f.input :role
       f.input :welcome_email_send
-      f.input :terms_of_service
-      f.input :profile, as: :json
-      f.input :location, as: :json
-      f.input :social_links, as: :json
+      if f.object.new_record?
+        f.input :terms_of_service
+      else
+        f.input :profile, as: :json
+        f.input :location, as: :json
+        f.input :social_links, as: :json
+      end
     end
     f.actions
   end
