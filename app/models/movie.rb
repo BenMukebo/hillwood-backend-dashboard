@@ -31,11 +31,11 @@ class Movie < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[id name category content_details created_at description image_url status
        comments_counter likes_counter views trailer_link_id video_link_id updated_at
-       movie_genre_id movie_outcast_id movie_writter_id ]
+       movie_genre_id outcast_id movie_writter_id ]
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[movie_comments movie_genre movie_likes movie_writter trailer_link video_link]
+    %w[movie_comments movie_genre movie_likes movie_writter outcast trailer_link video_link]
   end
 
   def self.released

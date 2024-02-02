@@ -1,6 +1,6 @@
 class Serie < ApplicationRecord
   belongs_to :movie_genre
-  belongs_to :movie_writter, optional: true
+  belongs_to :movie_writter, optional: true # , class_name: 'MovieWritter', foreign_key: 'movie_writter_id'
   belongs_to :video_link, class_name: 'Video', optional: true # , foreign_key: :video_link_id
 
   has_many :seasons, dependent: :restrict_with_error
@@ -25,11 +25,11 @@ class Serie < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[category created_at description id image_url
        movie_genre_id movie_outcast_id content_details
-       movie_writter_id name status updated_at video_link_id]
+       movie_writter_id outcasts_id name status updated_at video_link_id]
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[serie_comments movie_genre movie_writter seasons episodes video_link]
+    %w[serie_comments movie_genre movie_writter outcasts seasons episodes video_link]
   end
 
   def self.released
