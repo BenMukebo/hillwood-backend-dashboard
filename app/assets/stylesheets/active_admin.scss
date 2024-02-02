@@ -21,3 +21,42 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+@mixin d-flex ($justify: flex-start, $align: stretch, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  @if $direction {
+    flex-direction: $direction;
+  }
+}
+
+.choices-group {
+  width: 100% !important;
+  padding-top: 4px !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  flex: 1;
+  max-height: 117px;
+  overflow-y: scroll;
+  background-color: rgba(240, 248, 255, 0.548);
+
+  .choice {
+    height: 20px;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // white-space: nowrap;
+  }
+}
+
+.fragments-group {
+  @include d-flex($justify: flex-start);
+  margin-left: 0 !important;
+}
+
+// #outcast_status {
+//   height: 30px;
+//   width: 200px;
+// }
