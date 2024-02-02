@@ -1,20 +1,11 @@
 ActiveAdmin.register Movie do
   config.per_page = [10, 15, 20]
   json_editor
-  permit_params :name, :description, :category, :image_url, :released_at,
-                :views, :likes_counter, :comments_counter, :status,
-                :movie_genre_id, :video_link_id, :trailer_link_id, :movie_writter_id,
-                :movie_outcast_id, movie_outcast_ids: [], movie_comment_ids: [],
-                                   content_details: %i[duration country licence original_language]
-  # movie_comments_attributes: %i[id content user_id _destroy],
-
-  # def index
-  #   super do |movies|
-  #     movies.paginate(page: params[:page], per_page: 10)
-  #   end
-  # end
-
-  # navigation_menu :movie_writter
+  permit_params :name, :description, :category, :image_url, :released_at, :views,
+                :likes_counter, :comments_counter, :status, :movie_genre_id,
+                :video_link_id, :trailer_link_id, :movie_writter_id,
+                outcast_ids: [], movie_comment_ids: [],
+                content_details: %i[duration country licence original_language]
 
   index do
     selectable_column
@@ -59,7 +50,9 @@ ActiveAdmin.register Movie do
       row :video_link
       row :trailer_link
       row :movie_writter
-      row :movie_outcast_ids
+      row :outcasts do |movie|
+        movie.outcasts.map { |outcast| "- #{link_to("#{outcast.first_name} #{outcast.last_name}", [:admin, outcast])}" }.join(', ').html_safe
+      end
       row :created_at
       row :updated_at
       table_for movie.movie_comments.order('id ASC') do
@@ -81,22 +74,22 @@ ActiveAdmin.register Movie do
       f.input :content_details, as: :json
       f.input :status
       f.input :movie_genre
-      f.input :video_link_id, as: :select, collection: Video.all.map { |video_link| [video_link.url, video_link.id] }
+      f.input :video_link, as: :select, collection: Video.all.map { |video_link| [video_link.title, video_link.id] }
       f.input :trailer_link
-      f.input :movie_writter
-      # f.input :movie_outcast_ids, as: :check_boxes
+      f.input :movie_writter, as: :select, collection: MovieWritter.all.map { |writter| ["#{writter.first_name} #{writter.last_name}", writter.id] }
+      f.input :outcasts, as: :check_boxes, collection: Outcast.all.map { |outcast| ["#{outcast.first_name} #{outcast.last_name}", outcast.id] }
     end
+
     f.actions
   end
 
   filter :name
-  filter :category
   filter :status, as: :select, collection: Movie.statuses.keys
   # filter :status, as: :select, collection: Movie.statuses.map { |status, _value| [status, status] }
   filter :released_at
   filter :movie_genre
   filter :movie_writter, as: :select, collection: MovieWritter.all.map { |writter| [writter.first_name, writter.id] }
-  filter :movie_outcast_id
+  # filter :outcasts
   filter :created_at
 
   scope :all, default: true

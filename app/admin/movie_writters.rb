@@ -2,7 +2,7 @@ ActiveAdmin.register MovieWritter do
   config.per_page = 10
   json_editor
   permit_params :avatar_url, :first_name, :last_name, :date_of_birth,
-                :personal_details, :status, movie_ids: []
+                :personal_details, :status, movie_ids: [], series_ids: []
 
   index do
     selectable_column
@@ -16,6 +16,10 @@ ActiveAdmin.register MovieWritter do
     column :first_name
     column :last_name
     column :status
+    column :total_media do |movie_writter|
+      movie_writter.series.count + movie_writter.movies.count
+    end
+
     actions
   end
 
@@ -33,13 +37,62 @@ ActiveAdmin.register MovieWritter do
       row :status
       row :created_at
       row :updated_at
-      # row: movie_ids
-      table_for movie_writter.movies.order('name ASC') do
-        column 'movies' do |movie|
-          link_to movie.name, [:admin, movie] # item_path(movie) TODO: Understand the :admin
+      # row :movies
+      if movie_writter.movies.present?
+        row 'Movies' do |movie_writter| # or => row :movies do |movie_writter|
+          table_for movie_writter.movies do
+            column 'Movie Image', :image_url do |movie|
+              image_tag movie.image_url, width: 40, height: 30
+            end
+            column 'Movie Name' do |movie|
+              link_to movie.name, [:admin, movie]
+            end
+            column 'Movie Released At', :released_at
+            column 'Views', :views
+            column 'Likes', :likes_counter
+            column 'Comments', :comments_counter
+            column 'outcasts' do |movie|
+              movie.outcasts.count
+            end
+            column 'Genre', :movie_genre
+            column 'Status', :status
+          end
+        end
+      else
+        row 'Movies' do
+          span 'No Movies '
+          span link_to(' Add New Movie', new_admin_movie_path) # TODO: Implement the path link to contain the movie_writter_id
+        end
+      end
+
+      if movie_writter.series.present?
+        row 'Series' do |movie_writter| # or => row :series do |movie_writter|
+          table_for movie_writter.series do
+            column 'Serie Image', :image_url do |serie|
+              image_tag serie.image_url, width: 40, height: 30
+            end
+            column 'Serie Name' do |serie|
+              link_to serie.name, [:admin, serie]
+            end
+            column 'Seasons', :seasons do |serie|
+              serie.seasons.count
+            end
+            column 'Views', :views
+            column 'outcasts' do |serie|
+              serie.outcasts.count
+            end
+            column 'Genre', :movie_genre
+            column 'Status', :status
+          end
+        end
+      else
+        row 'Series' do
+          span 'No Series '
+          span link_to(' Add New Serie', new_admin_series_path)
         end
       end
     end
+
     active_admin_comments
   end
 
@@ -51,13 +104,20 @@ ActiveAdmin.register MovieWritter do
       f.input :date_of_birth
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
-      f.input :movies, as: :check_boxes
+      f.input :movies, as: :check_boxes # , collection: Movie.all.map { |movie| [movie.name, movie.id] }
+      f.input :series, as: :check_boxes
+      # div class: 'horizontal-checkbox-container' do
+      #   f.input :movies, as: :check_boxes
+      # end
     end
     f.actions
   end
 
-  # or
-  #
+  filter :first_name
+  filter :last_name
+  filter :status, as: :select, collection: MovieWritter.statuses.keys
+  filter :date_of_birth
+
   # permit_params do
   #   permitted = [:first_name, :last_name, :avatar_url, :personal_details, :status]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?

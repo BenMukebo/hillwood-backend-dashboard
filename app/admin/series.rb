@@ -1,8 +1,8 @@
 ActiveAdmin.register Serie do
   config.per_page = [10, 15, 20]
   permit_params :name, :description, :category, :image_url, :views, :status,
-                :movie_genre_id, :video_link_id, :movie_writter_id, :movie_outcast_id,
-                content_details: %i[duration country licence original_language]
+                :movie_genre_id, :video_link_id, :movie_writter_id, outcast_ids: [],
+                                                                    content_details: %i[duration country licence original_language]
 
   index do
     selectable_column
@@ -11,23 +11,22 @@ ActiveAdmin.register Serie do
       image_tag serie.image_url, width: 40, height: 30
     end
     column :name
+    column 'Preview video', :video_link
+    column 'Author', :movie_writter
+    column 'Genre', :movie_genre
+    column :views
     column :comments do |serie|
       serie.serie_comments.count
     end
     column :likes do |serie|
       serie.serie_likes.count
     end
-    column :views
-    column 'Preview video', :video_link
-    column 'Genre', :movie_genre
-    column 'Author', :movie_writter
     column :seasons, as: :select
     # column :seasons_list do |serie|
     #   serie.seasons.map(&:title).join(', ')
     #   serie.seasons.map { |season| link_to season.title, [:admin, season] }.join(', ').html_safe
     # end
     column :status
-    # column 'Outcasts', :movie_outcasts
 
     actions only: %i[show edit update]
   end
@@ -52,7 +51,10 @@ ActiveAdmin.register Serie do
       row :movie_genre
       row :video_link
       row :movie_writter
-      row :movie_outcast_ids
+      row :outcasts do |serie|
+        # serie.outcasts.map(&:first_name).join(', ')
+        serie.outcasts.map { |outcast| "- #{link_to("#{outcast.first_name} #{outcast.last_name}", [:admin, outcast])}" }.join(', ').html_safe
+      end
       row :created_at
       row :updated_at
       table_for serie.seasons.order('title ASC') do
@@ -60,6 +62,7 @@ ActiveAdmin.register Serie do
           link_to season.title, [:admin, season]
         end
       end
+
       table_for serie.serie_comments.order('id ASC') do
         column 'serie_comments' do |serie_comment|
           link_to serie_comment.text, [:admin, serie_comment]
@@ -74,7 +77,7 @@ ActiveAdmin.register Serie do
   filter :status
   filter :movie_genre
   filter :movie_writter
-  filter :movie_outcast
+  # filter :outcasts
   filter :created_at
 
   form do |f|
@@ -86,9 +89,9 @@ ActiveAdmin.register Serie do
       f.input :content_details
       f.input :status
       f.input :movie_genre
-      f.input :video_link_id, as: :select, collection: Video.all.map { |video_link| [video_link.url, video_link.id] }
-      f.input :movie_writter_id
-      f.input :movie_outcast_id
+      f.input :video_link
+      f.input :movie_writter, collection: MovieWritter.all.map { |movie_writter| ["#{movie_writter.first_name} #{movie_writter.last_name}", movie_writter.id] }
+      f.input :outcasts, as: :check_boxes, collection: Outcast.all.map { |outcast| ["#{outcast.first_name} #{outcast.last_name}", outcast.id] }
     end
     f.actions
   end
