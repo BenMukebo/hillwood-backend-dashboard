@@ -99,6 +99,7 @@ ActiveAdmin.register MovieWritter do
       f.input :first_name
       f.input :last_name
       f.input :avatar_url
+      # f.input :avatar_url, as: :file, input_html: { accept: 'image/*' }
       f.input :date_of_birth
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
