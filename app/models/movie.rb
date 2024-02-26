@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  include MediaFilters
+
   belongs_to :movie_genre
   belongs_to :movie_writter, optional: true
 
@@ -38,28 +40,16 @@ class Movie < ApplicationRecord
     %w[movie_comments movie_genre movie_likes movie_writter outcast trailer_link video_link]
   end
 
-  def self.released
-    where(status: [1, 2])
-  end
-
   def increment_view
     self.views += 1
     save
   end
 
-  def self.search_by_name(name)
-    where('name ILIKE ?', "%#{name}%")
+  def self.released
+    where(status: [1, 2])
   end
 
-  # def self.search_by_category(category)
-  #   where(category: category)
-  # end
-
-  # def self.search_by_name_and_category(name, category)
-  #   where('name ILIKE ?', "%#{name}%").where(category: category)
-  # end
-
-  # def self.search_by_name_or_category(name, category)
-  #   where('name ILIKE ? OR category = ?', "%#{name}%", category)
+  # def self.search_by_name(name)
+  #   where('name ILIKE ?', "%#{name}%")
   # end
 end

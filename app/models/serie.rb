@@ -1,4 +1,6 @@
 class Serie < ApplicationRecord
+  include MediaFilters
+
   belongs_to :movie_genre
   belongs_to :movie_writter, optional: true # , class_name: 'MovieWritter', foreign_key: 'movie_writter_id'
   belongs_to :video_link, class_name: 'Video', optional: true # , foreign_key: :video_link_id
@@ -41,7 +43,7 @@ class Serie < ApplicationRecord
     save
   end
 
-  def self.search_by_name(name)
-    where('name ILIKE ?', "%#{name}%")
-  end
+  # def self.search_by_name(name)
+  #   where('name ILIKE ?', "%#{name}%")
+  # end
 end

@@ -1,26 +1,23 @@
 class Api::SeriesController < Api::ApiController
+  # skip_before_action :authenticate_api_user!, only: %i[index show options]
   before_action :set_series, only: %i[show update destroy]
 
   def index
-    @search = search_params[:search]
-    @series = @search.present? ? series_scope.search_by_name(@search) : series_scope
+    @series = series_scope
+    apply_series_filters
 
-    # Check if series are present
-    if @series.any?
-      render_success_response('Series fetched successfully', @series, serializer: Series::SerieSerializer)
-    else
-      # Render an empty array when there is no search parameter
-      render_success_response("No Series #{@search} found in the DB", [], serializer: Series::SerieSerializer)
-    end
+    render_success_response('Series fetched successfully', @series, serializer: Series::SerieSerializer)
   end
 
   def options
-    @search = search_params[:search]
-    @series = @search.present? ? series_scope.search_by_name(@search) : series_scope
+    @search = query_params[:search]
+    @series = @search.present? ? Serie.all.search_by_name(@search) : Serie.all
 
-    if @series.any?
+    # Check if series are present
+    if @series.present?
       render_success_response('Series options', @series, serializer: Series::SerieOptionSerializer)
     else
+      # Render an empty array when there is no search parameter
       render_success_response("No Series #{@search} found in the DB", @series, serializer: Series::SerieOptionSerializer)
     end
   end
@@ -55,12 +52,19 @@ class Api::SeriesController < Api::ApiController
 
   private
 
-  def series_scope
-    Serie.includes(:movie_genre).all.released
+  def apply_series_filters
+    @series = @series.search_by_name(query_params[:search])
+    @series = @series.filter_by_genre_name(query_params[:genre]) if query_params[:genre].present?
+    @series = @series.filter_by_movie_writer_id(query_params[:author_id]) if query_params[:author_id].present?
+    # @series = @series.filter_by_genre_id(params[:genre_id]) if params[:genre_id].present?
   end
 
-  def search_params
-    params.permit(:keyword, :page, :per_page, :search, :status)
+  def series_scope
+    Serie.includes(%i[movie_genre movie_writter serie_comments serie_likes outcasts outcast_associations video_link]).all.released
+  end
+
+  def query_params
+    params.permit(:page, :per_page, :search, :sort_by, :genre, :status, :author_id)
   end
 
   def set_series
