@@ -3,7 +3,7 @@ module Validatable
 
   included do
     validates_presence_of :first_name, :last_name # , :avatar_url
-    validates :first_name, :last_name, length: { minimum: 3, maximum: 50 }
+    validates :first_name, :last_name, length: { minimum: 2, maximum: 24 }
     validates :avatar_url, format: { with: URI::DEFAULT_PARSER.make_regexp }, allow_blank: true
     # validates_uniqueness_of :avatar_url, case_sensitive: false
 

@@ -10,7 +10,7 @@ module ResponseHelper
     items_per_page = params[:per_page] || WillPaginate.per_page
 
     # total_page ||= 1
-    total_items = data.count || 0
+    total_items = data.size || 0
     total_pages = total_items.positive? ? (total_items / items_per_page.to_f).ceil : 0
 
     # paginate_data = data.paginate(page: params[:page] || 1, per_page: items_per_page)
