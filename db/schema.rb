@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_30_094730) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_02_150652) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_094730) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "artists", force: :cascade do |t|
+    t.string "avatar_url"
+    t.string "first_name"
+    t.string "last_name"
+    t.date "date_of_birth"
+    t.jsonb "personal_details", default: {"bio"=>nil, "sex"=>nil, "email"=>nil, "address"=>nil, "interests"=>nil, "languages"=>nil}, null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["personal_details"], name: "index_artists_on_personal_details", using: :gin
   end
 
   create_table "episodes", force: :cascade do |t|

@@ -27,6 +27,12 @@ ActiveAdmin.register Movie do
     actions only: %i[show edit update] # TODO: Fix the only: options
   end
 
+  controller do
+    def scoped_collection
+      super.includes(:movie_genre, :movie_writter, :video_link, :trailer_link)
+    end
+  end
+
   show do
     attributes_table do
       row :name

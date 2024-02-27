@@ -24,10 +24,12 @@ Rails.application.routes.draw do
     end
     get 'full-profile', to: 'users#profile'
     put '/edit-profile', to: 'users#edit'
-    resources :videos, only: %i[index show create update, destroy]
+    resources :artists, only: %i[index show create update ]
+
     resources :movie_writters, only: %i[index show create update]
     resources :outcasts, only: %i[index show create update]
-    resources :movie_outcasts, only: %i[index show create update destroy]
+    resources :videos, only: %i[index show create update, destroy]
+    
     resources :movies, only: %i[index show create update destroy]
     resources :movie_likes, only: %i[index create update destroy]
     resources :movie_comments, only: %i[index show create update destroy]
@@ -41,6 +43,7 @@ Rails.application.routes.draw do
     scope '/options' do
       # resources :movie_genres, only: %i[index], path: 'movie-genres', as: 'movie_genres'
       # resources :movie_genres, path: 'movie-genres', only: %i[index]
+      get 'artists', to: 'artists#options'
       get 'movie-genres', to: 'movie_genres#options'
       get 'movie-writters', to: 'movie_writters#options'
       get 'outcasts', to: 'outcasts#options'

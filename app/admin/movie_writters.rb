@@ -17,9 +17,15 @@ ActiveAdmin.register MovieWritter do
     column :last_name
     column :status
     column :total_media do |movie_writter|
-      movie_writter.series.count + movie_writter.movies.count
+      movie_writter.series.size + movie_writter.movies.size
     end
     actions
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(:movies, :series)
+    end
   end
 
   show do
@@ -51,7 +57,7 @@ ActiveAdmin.register MovieWritter do
             column 'Likes', :likes_counter
             column 'Comments', :comments_counter
             column 'outcasts' do |movie|
-              movie.outcasts.count
+              movie.outcasts.size
             end
             column 'Genre', :movie_genre
             column 'Status', :status
@@ -74,11 +80,11 @@ ActiveAdmin.register MovieWritter do
               link_to serie.name, [:admin, serie]
             end
             column 'Seasons', :seasons do |serie|
-              serie.seasons.count
+              serie.seasons.size
             end
             column 'Views', :views
             column 'outcasts' do |serie|
-              serie.outcasts.count
+              serie.outcasts.size
             end
             column 'Genre', :movie_genre
             column 'Status', :status
@@ -99,6 +105,7 @@ ActiveAdmin.register MovieWritter do
       f.input :first_name
       f.input :last_name
       f.input :avatar_url
+      # f.input :avatar_url, as: :file, input_html: { accept: 'image/*' }
       f.input :date_of_birth
       f.input :personal_details, as: :json
       f.input :status, as: :select, collection: MovieWritter.statuses.keys
@@ -115,10 +122,4 @@ ActiveAdmin.register MovieWritter do
   filter :last_name
   filter :status, as: :select, collection: MovieWritter.statuses.keys
   filter :date_of_birth
-
-  # permit_params do
-  #   permitted = [:first_name, :last_name, :avatar_url, :personal_details, :status]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
 end

@@ -15,12 +15,14 @@ ActiveAdmin.register Serie do
     column 'Author', :movie_writter
     column 'Genre', :movie_genre
     column :views
-    column :comments do |serie|
-      serie.serie_comments.count
-    end
-    column :likes do |serie|
-      serie.serie_likes.count
-    end
+    # column :comments do |serie|
+    #   serie.serie_comments.size
+    # end
+    # column :likes do |serie|
+    #   serie.serie_likes.size
+    # end
+    column :likes_count
+    column :comments_count
     column :seasons, as: :select
     # column :seasons_list do |serie|
     #   serie.seasons.map(&:title).join(', ')
@@ -29,6 +31,12 @@ ActiveAdmin.register Serie do
     column :status
 
     actions only: %i[show edit update]
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(:movie_genre, :movie_writter, :video_link, :seasons, :video_link, :serie_comments, :serie_likes)
+    end
   end
 
   show do
@@ -41,12 +49,8 @@ ActiveAdmin.register Serie do
       end
       row :content_details
       row :views
-      row :likes do |serie|
-        serie.serie_likes.count
-      end
-      row :comments do |serie|
-        serie.serie_comments.count
-      end
+      row :likes_count
+      row :comments_count
       row :status
       row :movie_genre
       row :video_link
