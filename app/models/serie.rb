@@ -43,6 +43,14 @@ class Serie < ApplicationRecord
     save
   end
 
+  def comments_count
+    serie_comments.size
+  end
+
+  def likes_count
+    serie_likes.size
+  end
+
   # def self.search_by_name(name)
   #   where('name ILIKE ?', "%#{name}%")
   # end
