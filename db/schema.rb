@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_02_150652) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_28_165427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,30 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_02_150652) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "albums", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "category"
+    t.string "photo_url"
+    t.date "released_date"
+    t.integer "songs_counter"
+    t.jsonb "content_details", default: {}, null: false
+    t.integer "status"
+    t.string "video_link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_details"], name: "index_albums_on_content_details", using: :gin
+  end
+
+  create_table "albums_artists_join_tales", force: :cascade do |t|
+    t.bigint "album_id", null: false
+    t.bigint "artists_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_albums_artists_join_tales_on_album_id"
+    t.index ["artists_id"], name: "index_albums_artists_join_tales_on_artists_id"
   end
 
   create_table "artists", force: :cascade do |t|
@@ -280,6 +304,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_02_150652) do
     t.index ["details"], name: "index_videos_on_details", using: :gin
   end
 
+  add_foreign_key "albums_artists_join_tales", "albums"
+  add_foreign_key "albums_artists_join_tales", "artists", column: "artists_id"
   add_foreign_key "episodes", "seasons"
   add_foreign_key "episodes", "series", column: "serie_id"
   add_foreign_key "episodes", "videos", column: "trailer_link_id"

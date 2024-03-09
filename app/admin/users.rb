@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  menu priority: 9
+  menu priority: 7
   config.per_page = [10, 15, 20]
   json_editor
 

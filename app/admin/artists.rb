@@ -1,6 +1,8 @@
 ActiveAdmin.register Artist do
+  menu priority: 9
   config.per_page = 10
   json_editor
+
   permit_params :avatar_url, :first_name, :last_name, :date_of_birth, :personal_details, :status
 
   index do
